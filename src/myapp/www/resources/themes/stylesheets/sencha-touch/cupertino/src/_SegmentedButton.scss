@@ -1,0 +1,31 @@
+
+.x-toolbar .x-segmentedbutton, .x-segmentedbutton {
+	.x-button {
+		margin: 0 !important;
+		border: 0;//1px solid $ios7-blue;
+		border-right: 0;
+		@include border-radius(0);
+		height: 45px;
+    font-size: 15px;
+    background-color: transparent;
+    
+		&.x-button-pressed {
+			//background-color: #005f75;//33B5E5;//157efb;
+			
+			.x-button-label {
+				color: #fff;
+				font-family: 'ROBOTO-BOLD';
+			}
+			
+		}
+	}
+
+	.x-first {
+		@include border-left-radius(0px);
+	}
+
+	.x-last {
+		@include border-right-radius(0px);
+		border-right: 0;//1px solid $ios7-blue;
+	}
+}

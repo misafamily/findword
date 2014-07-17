@@ -1,0 +1,71 @@
+//$ios7-blue: #fff;
+$fontName: 'ROBOTO-LIGHT';
+$fontBoldName: 'ROBOTO-BOLD';
+
+@import 'sencha-touch/cupertino';
+@import 'sencha-touch/cupertino/all';
+
+//@include icon('menu');
+@include st-loading-spinner;
+
+//embed fonts
+//@include font-face('ROBOTO-THIN', inline-font-files('roboto/Roboto-Thin.ttf', opentype));
+@include font-face('ROBOTO-BOLD', inline-font-files('roboto/Roboto-Bold.ttf', opentype));
+//@include font-face('ROBOTO-BLACK', inline-font-files('roboto/Roboto-Black.ttf', opentype));
+//@include font-face('ROBOTO-MEDIUM', inline-font-files('roboto/Roboto-Medium.ttf', opentype));
+@include font-face('ROBOTO-LIGHT', inline-font-files('roboto/Roboto-Light.ttf', opentype));
+//@include font-face('ROBOTO-MD', inline-font-files('other/ITCAVANTGARDESTD-MD.OTF', opentype));
+//@include font-face('ROBOTO-BK', inline-font-files('other/ITCAVANTGARDESTD-BK.OTF', opentype));
+.b-textfield-moneyinput  {
+    .x-input-text{
+      font-family: $fontName;
+       color: #544b40;
+        font-size: 30px;
+        background-color: #fff;        
+
+        resize: none !important;
+    }
+    .x-field-input {
+      border-radius: 0px;
+    }
+    .x-input-el {
+      font-family: $fontBoldName;
+      color: #544b40;
+      text-align:right;
+      background-color: #fff;
+     // padding-top: 7px;
+      min-height: 29px;//$form-field-height;
+      border: 3px solid #766f67;
+      border-radius: 10px;
+      padding: 2px 5px;
+      width: 260px;
+      -webkit-appearance: none;
+    }
+}
+
+.form-textfield { 
+    .x-input-text{
+      font-family: $fontName;
+       color: #434446;
+        font-size: 16px;
+        padding-left: 55px;
+        background-color: #fff;        
+        padding-bottom: 5px;
+        resize: none !important;
+    }
+    .x-field-input {
+      border-radius: 0px;
+    }
+    .x-input-el {
+      font-family: $fontName;
+      color: #434446;
+      text-align:left;
+      background-color: #fff;
+      padding-top: 7px;
+      min-height: 38px;//$form-field-height;
+      border-width: 0;
+      -webkit-appearance: none;
+    }
+}
+
+
