@@ -25,6 +25,28 @@ body {
 	height: 45px;
 }
 
+.button-back {
+	background-image: url('../images/backbtn.png');
+	background-size: contain;
+	width: 25px;
+	height: 25px;
+}
+
+.button-ignore {
+	background-image: url('../images/ignorebtn.png');
+	background-size: contain;
+	width: 35px;
+	height: 35px;
+}
+
+.button-help {
+	background-image: url('../images/helpbtn.png');
+	background-size: contain;
+	width: 35px;
+	height: 35px;
+	margin-left: 20px;
+}
+
 .button-question {
 	border-radius: 6px;
 	width: 30px;
@@ -60,7 +82,9 @@ body {
 	border-radius: 6px;
 	width: 35px;
 	height: 35px;
-	margin-right: 5px;
+	margin-right: 8px;
+	background-color: #fff;
+	border-color: #fff;
 }
 
 .button-answer.last {
@@ -71,6 +95,25 @@ body {
 	font-size: 26px;
 	color: #071e36;
 	font-family: 'ROBOTO-BOLD'
+}
+
+.button-answer.hide {
+	visibility: hidden;
+}
+
+/*AUTO HIDE ALERT*/
+.autohidealert-container {
+	height: 50px;
+	z-index: 11;
+	width: 100%;
+	background-color: transparent;
+}
+
+.autohidealert-container .message {
+	background-color: rgba(255, 95, 24, 0.9);
+	color: white;	
+	border-radius: 6px;
+	padding: 10px;
 }
 
 /*HOME*/
@@ -89,21 +132,52 @@ body {
 	background-image: url('../images/barbg.png');
 	width: 100%;
 	background-size: contain;
+	color: white;
+	font-size: 18px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.game-level {
+	font-family: 'ROBOTO-BOLD'
 }
 
 .game-pic {
-	min-height: 200px;
+	min-height: 160px;
 	width: 100%;
+	padding: 0px;
+	overflow: hidden;
 }
 
 .game-word {
 	background-color: #dcd4bf;
-	min-height: 100px;
+	min-height: 80px;
 	width: 100%;
 }
 
 .game-answer {
 	background-color: #2d282c;
-	min-height: 100px;
+	min-height: 90px;
+	width: 100%;
+}
+
+.game-score {
+	background-color: #bf4b19;
+	border-radius: 6px;
+	padding: 5px;
+}
+
+.game-buttons {
+	/*height: 40px;*/
+	width: 100%;
+	margin-bottom: 3px;
+	margin-top: 8px;
+}
+
+.game-pic-image {
+	/*border: 5px solid white;*/
+}
+
+.game-pic-image.x-img.x-img-image img {
 	width: 100%;
 }

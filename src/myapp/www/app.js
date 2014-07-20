@@ -13,15 +13,18 @@
 Ext.application({
     name: 'MyApp',
 
-    requires: [
-        'Ext.MessageBox'
-    ],
+    requires : ['Ext.MessageBox', 'MyApp.util.AppUtil', 'MyApp.util.offline.Connection', 'MyApp.util.offline.Proxy'],
+    
 
     controllers: ['Main'],
 
     views: [
         'Main'
     ],
+
+    models:['Question'],
+    
+    stores:['InitAppData', 'Questions'],
 
     icon: {
         '57': 'resources/icons/Icon.png',
@@ -43,21 +46,86 @@ Ext.application({
 
     launch: function() {
         // Destroy the #appLoadingIndicator element
-        Ext.fly('appLoadingIndicator').destroy();
-
+       
+        
+        this.onDeviceReady();
+        //document.addEventListener("deviceready", this.onDeviceReady, false);
         // Initialize the main view
-        Ext.Viewport.add(Ext.create('MyApp.view.Main'));
+       
     },
+    
+    onDeviceReady: function() {
 
-    onUpdated: function() {
-        Ext.Msg.confirm(
-            "Application Update",
-            "This application has just successfully been updated to the latest version. Reload now?",
-            function(buttonId) {
-                if (buttonId === 'yes') {
-                    window.location.reload();
-                }
-            }
-        );
+        Ext.Msg.defaultAllowedConfig.showAnimation = false;
+        Ext.Msg.defaultAllowedConfig.hideAnimation = false;
+
+        console.log('init data..');
+
+        AppUtil.showLoading();
+        AppUtil.initAppData(function(){
+            console.log('init done');
+            var store = Ext.getStore('Questions');
+            store.load(function(records){
+                console.log('load done');
+                Ext.fly('appLoadingIndicator').destroy();   
+                Ext.Viewport.add(Ext.create('MyApp.view.Main'));   
+                AppUtil.hideLoading(); 
+            });       
+        });
+
+
+
+        var onBackKeyDown = function() {
+            //alert('onBackKeyDown');
+            MyApp.app.fireEvent('backbutton');
+        }
+
+        var onResume = function() {
+           setTimeout(function() {
+              // TODO: do your thing!
+              //alert('onResume');
+              MyApp.app.fireEvent('resume');
+            }, 100);
+        }
+
+        var onPause = function() {
+            //MyApp.app.fireEvent('pause');
+        }
+
+        document.addEventListener("backbutton", onBackKeyDown, false);
+        //document.addEventListener("resume", onResume, false);
+        //document.addEventListener("pause", onPause, false);
+         
+         
+         //return;banner height: 48px
+         if( window.plugins && window.plugins.AdMob ) {
+            var admob_ios_key = 'ca-app-pub-2676331971568981/2132554150';
+            var admob_android_key = 'ca-app-pub-2676331971568981/2132554150';
+            var adId = (navigator.userAgent.indexOf('Android') >=0) ? admob_android_key : admob_ios_key;
+            var am = window.plugins.AdMob;
+        
+            am.createBannerView( 
+                {
+                'publisherId': adId,
+                'adSize': am.AD_SIZE.SMART_BANNER,//SMART_BANNER,//BANNER
+                'bannerAtTop': false
+                }, 
+                function() {
+                    Ext.defer(function(){
+                        am.requestAd(
+                            { 'isTesting':false }, 
+                            function(){
+                                am.showAd( true );
+                            }, 
+                            function(){ alert('failed to request ad'); }
+                        );
+                    },2000);
+                    
+                }, 
+                function(){ alert('failed to create banner view'); }
+            );
+        } else {
+          //alert('AdMob plugin not available/ready.');
+        }
     }
 });

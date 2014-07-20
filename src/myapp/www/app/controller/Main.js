@@ -15,8 +15,20 @@ Ext.define('MyApp.controller.Main', {
 					me.getMain().setActiveItem(me.getGame());
 					MyApp.app.fireEvent('start_game');
 				}
+			},
+
+			'game button[title="back"]': {
+				tap: function() {
+					var me = this;
+					me.getMain().setActiveItem(me.getHome());
+					MyApp.app.fireEvent('go_home');
+				}
 			}
 		}
 
+	},
+
+	initialize: function() {
+		var me = this;
 	}
 });
