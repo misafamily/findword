@@ -1,6 +1,6 @@
 Ext.define('MyApp.util.AppUtil', {
 	alternateClassName : 'AppUtil',
-	requires : ['MyApp.model.SavedVar','MyApp.view.AutoHideAlert'],
+	requires : ['MyApp.model.SavedVar','MyApp.view.AutoHideAlert', 'MyApp.view.pop.Alert', 'MyApp.view.pop.Confirm'],
 	singleton : true,
 	dbConnection : null,
 	popupAdded: [],
@@ -93,21 +93,37 @@ Ext.define('MyApp.util.AppUtil', {
 
 	},
 
+	resetSettings: function() {
+		var me = this;
+		me.saveLocalVar('score', 20);
+		me.saveLocalVar('level', 1);
+		me.saveLocalVar('freetime', 1);
+
+		me.APPVERSION = me.getLocalVar('app_version');
+		me.SCORE = me.getLocalVar('score');
+		me.LEVEL = me.getLocalVar('level');
+		me.FREETIME = me.getLocalVar('freetime');
+	},
+
 	initSettings : function() {
 		var me = this;
 		if (!me.getLocalVar('app_version')) {
 			me.saveLocalVar('app_version', '0.0');
 		}
 		if (!me.getLocalVar('score')) {
-			me.saveLocalVar('score', 0);
+			me.saveLocalVar('score', 20);
 		}
 		if (!me.getLocalVar('level')) {
 			me.saveLocalVar('level', 1);
+		}
+		if (!me.getLocalVar('freetime')) {
+			me.saveLocalVar('freetime', 1);
 		}
 		
 		me.APPVERSION = me.getLocalVar('app_version');
 		me.SCORE = me.getLocalVar('score');
 		me.LEVEL = me.getLocalVar('level');
+		me.FREETIME = me.getLocalVar('freetime');
 	},
 
 	save: function() {
@@ -156,15 +172,18 @@ Ext.define('MyApp.util.AppUtil', {
 	
 	alert: function(msg, title) {
 		var me = this;
-		
-		
 		title = title || '';
+
+		if (!me._popAlert) me._popAlert = Ext.create('MyApp.view.pop.Alert');
+        Ext.Viewport.add(me._popAlert);
+        me._popAlert.showMe(msg, title);
+		/*
 		var alert = Ext.Msg.alert(title, msg, function() {
-			me.popupAdded.pop();
-			MyApp.app.fireEvent(AppConfig.eventData.APP_UNMASK);
-		});
-		this.popupAdded.push(alert);
-		MyApp.app.fireEvent(AppConfig.eventData.APP_MASK);
+			//me.popupAdded.pop();
+			//MyApp.app.fireEvent(AppConfig.eventData.APP_UNMASK);
+		});*/
+		//this.popupAdded.push(alert);
+		//MyApp.app.fireEvent(AppConfig.eventData.APP_MASK);
 	},
 
 	autoAlert: function (msg) {
@@ -178,16 +197,19 @@ Ext.define('MyApp.util.AppUtil', {
 	confirm: function(msg, title, callback) {
 		var me = this;
     	
-
+		if (!me._confirmAlert) me._confirmAlert = Ext.create('MyApp.view.pop.Confirm');
+		Ext.Viewport.add(me._confirmAlert);
+        me._confirmAlert.showMe(msg, title, callback);
+		/*
     	var alert = Ext.Msg.confirm(title, msg, function(code){
-    		me.popupAdded.pop();
-    		MyApp.app.fireEvent(AppConfig.eventData.APP_UNMASK);
+    		//me.popupAdded.pop();
+    		//MyApp.app.fireEvent(AppConfig.eventData.APP_UNMASK);
     		if (code == 'yes') 
     			if (typeof callback === 'function') callback();
     	});
-
-    	this.popupAdded.push(alert);
-    	MyApp.app.fireEvent(AppConfig.eventData.APP_MASK);
+		*/
+    	//this.popupAdded.push(alert);
+    	//MyApp.app.fireEvent(AppConfig.eventData.APP_MASK);
     },
 
     showLoading: function (msg) {

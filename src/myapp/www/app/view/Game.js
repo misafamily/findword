@@ -104,10 +104,14 @@ Ext.define('MyApp.view.Game', {
 			items: [{
 				xtype: 'button',
 				cls: 'button-icon button-ignore',
-				badgeText: '0'
+				badgeText: '0',
+				title: 'freetimebtn',
+				itemId: 'freetimebtnid'
 			}, {
 				xtype: 'button',
-				cls: 'button-icon button-help'
+				cls: 'button-icon button-help',
+				title: 'helpbtn',
+				itemId: 'helpbtnid'
 			}]
 		}, {
 			xtype: 'container',			
@@ -217,6 +221,9 @@ Ext.define('MyApp.view.Game', {
 		me.allQuestions = Ext.clone(me.questionStore.data.items);
 
 		console.log('me.questionStore', me.questionStore);
+
+		//reset game to test
+		AppUtil.resetSettings();
 	},
 
 	onStartGame: function() {
@@ -259,7 +266,7 @@ Ext.define('MyApp.view.Game', {
 		if (q) {
 			me.renderQuestion(q);
 		} else {
-			AppUtil.alert('Chúc mừng Bạn đã hoàn thành hết câu hỏi của trò chơi. Chúng tôi sẽ cập nhật thêm trong phiên bản cập nhật tiếp theo.<br/>Xin chào và hẹn gặp lại');
+			AppUtil.alert('Bạn đã hoàn thành trò chơi. Chúng tôi sẽ cập nhật thêm trong phiên bản tiếp theo.<br/>Xin chào và hẹn gặp lại.', 'CHÚC MỪNG');
 		}
 	},
 
@@ -268,16 +275,18 @@ Ext.define('MyApp.view.Game', {
 		var lv = AppUtil.LEVEL;
 		if (!me.levelLabel) me.levelLabel = me.down('label[title="levellabel"]');
 		if (!me.scoreLabel) me.scoreLabel = me.down('label[title="scorelabel"]');
+		if (!me.freetimeButton) me.freetimeButton = me.down('button[title="freetimebtn"]');
 
 		me.levelLabel.setHtml('CÂU ' + lv);
 		me.scoreLabel.setHtml(AppUtil.SCORE);
+		me.freetimeButton.setBadgeText(AppUtil.FREETIME);
 	},
 
 	renderQuestion: function(question) { //is Question model
 		var me = this;
 		if (!me.image) me.image = me.down('image[title="gamethumb"]');
-		console.log('renderQuestion: ', question);
-		me.image.setSrc('resources/data/' + question.data.thumb);
+		//AppUtil.alert('resources/data/' + question.data.thumb, 'src');
+		me.image.setSrc(question.data.thumb);
 		me.generateQuestion(question.data.word.toUpperCase());
 	},
 
@@ -332,7 +341,8 @@ Ext.define('MyApp.view.Game', {
 
 		var a = question.split('');
 		while (a.length < me.MAXA*2) {
-			a.push(me.ALPHABE[Math.round(Math.random()*me.ALPHABE.length-2)]);
+			var tt = me.ALPHABE[Math.round(Math.random()*me.ALPHABE.length-2)] || ''; 
+			if (tt != '') a.push(tt);
 		}
 		a = me.shuffle(a);
 		//console.log(a);
@@ -382,7 +392,7 @@ Ext.define('MyApp.view.Game', {
 	chooseAnswer: function(btn) {
 		var me = this;
 		var title = btn.getItemId();
-		console.log('itemId: ', title);
+		//console.log('itemId: ', title);
 		var answer = '';
 		if (title.indexOf('a') > -1) { //is A button
 			if (me.timeout) return;
@@ -409,27 +419,107 @@ Ext.define('MyApp.view.Game', {
 				console.log('RIGHT ANSWER: ', me.ANSWER);
 				me.timeout = true;
 				if (answer == me.ANSWER) {
-					AppUtil.autoAlert('Đáp án chính cmn xác rồi');
+					AppUtil.autoAlert('Đáp án chính xác rồi');
 					me.answerRight();
 				} else {
-					AppUtil.autoAlert('Đoán sai cmn rồi');
+					AppUtil.autoAlert('Đoán sai rồi');
 					me.answerWrong();
 				}
 
 			}
-		} else { // is Q button
-			btn.removeCls('open');
-			btn.setText('');
+		} else if (title.indexOf('q') > -1) { // is Q button
 			var itemId = btn.getItemId().split('-');
-			me.timeout = false;
-			btn.setItemId(itemId[0]);
-			for (var i = 0; i < me.AButtons.length; i++) {
-				var b = me.AButtons[i];
-				if (b.getItemId() == 'a_' + itemId[1]) {
-					b.removeCls('hide');
+			if (itemId.length > 1) {
+				btn.removeCls('open');
+				btn.setText('');
+				me.timeout = false;
+				btn.setItemId(itemId[0]);
+				for (var i = 0; i < me.AButtons.length; i++) {
+					var b = me.AButtons[i];
+					if (b.getItemId() == 'a_' + itemId[1]) {
+						b.removeCls('hide');
+					}
 				}
 			}
+		} else if (title == 'freetimebtnid') {
+			if (AppUtil.FREETIME > 0) {
+				var msg = 'Quyền Bỏ Qua Câu Đố còn {0} lần. Đồng ý bỏ qua câu đố này ?';
+				AppUtil.confirm(Ext.util.Format.format(msg, AppUtil.FREETIME), 'Bỏ Qua Câu Đố', function() {
+					AppUtil.FREETIME -= 1;
+					AppUtil.saveLocalVar('freetime', AppUtil.FREETIME);
+					me.ignoreQuestion();
+				});
+			} else {
+				AppUtil.alert('Bạn đã sử dụng hết số lần Bỏ Qua Câu Đố. Hãy dùng xu để Mở Ô Đáp Án.', 'Bỏ Qua Câu Đố');
+			}
+		} else if (title == 'helpbtnid') {
+			if (AppUtil.SCORE >= 3) {
+				var msg = 'Mở 1 chữ trong ô đáp án sẽ bị trừ 5 xu. Bạn đồng ý chứ ?';
+				AppUtil.confirm(msg, 
+					'Mở Ô Đáp Án',
+					function() {
+						//AppUtil.SCORE -= 5;
+						//AppUtil.saveLocalVar('score', AppUtil.SCORE);
+						me.open1Char();
+					});
+			} else {
+				AppUtil.alert('Số xu đã hết. Hãy cố gắng suy nghĩ nào.', 'Mở Ô Đáp Án');
+			}
 		}
+	},
+
+	open1Char: function() {
+		var me = this;
+		AppUtil.SCORE -= 5;
+	
+		AppUtil.save();
+
+		var answer = '';
+		var found = false;
+		for (var i = 0; i < me.QButtons.length; i++) {
+			var b = me.QButtons[i];
+			
+			if (b.getText() == '' && !found) {
+				found = true;
+				//
+				b.setText(me.ANSWER[i]);
+				b.addCls('fix');
+				answer += b.getText();
+
+				for (var j = 0; j < me.AButtons.length; j++) {
+					var bb = me.AButtons[j];
+					if (bb.getText() == me.ANSWER[i]) {
+						bb.addCls('hide');
+						break;
+					}
+				};
+				//b.setItemId(b.getItemId() + '-' + title.split('_')[1]);
+				//btn.addCls('hide');
+				//break;
+			} else {
+				answer += b.getText();
+			}
+		};
+		
+		if (answer.length == me.ANSWER.length) {
+			//fill all, check it correct or not
+			console.log('YOUR ANSWER: ', answer);
+			console.log('RIGHT ANSWER: ', me.ANSWER);
+			me.timeout = true;
+			if (answer == me.ANSWER) {
+				AppUtil.autoAlert('Đáp án chính xác');
+				me.answerRight();
+			} else {
+				AppUtil.autoAlert('Đoán sai rồi');
+				me.answerWrong();
+			}
+
+		}
+
+		Ext.defer(function(){
+			me.updateGameInfo();
+		}, 300);
+		
 	},
 
 	answerRight: function() {
@@ -441,7 +531,20 @@ Ext.define('MyApp.view.Game', {
 
 		Ext.defer(function(){
 			me.playGame();
-		}, 1000);
+		}, 300);
+		
+	},
+
+	ignoreQuestion: function() {
+		var me = this;
+		//AppUtil.SCORE += 3;
+		AppUtil.LEVEL += 1;
+
+		AppUtil.save();
+
+		Ext.defer(function(){
+			me.playGame();
+		}, 300);
 		
 	},
 

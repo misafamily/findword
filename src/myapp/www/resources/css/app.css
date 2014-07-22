@@ -6,7 +6,7 @@ body {
 .button-icon {
 	background-color: transparent;
 	border: 0;
-	background-size: contain;
+	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	border-radius: 0;
 }
@@ -17,6 +17,25 @@ body {
 .x-button-label, .x-button-normal .x-button-label {
 	color: white;
 	font-family: 'ROBOTO-LIGHT';
+}
+
+.button-pop {
+	background-image: url('../images/btn_PU.png');
+	width: 107px;
+}
+
+.button-pop.x-button-pressing {
+	background-image: url('../images/btn_PU_active.png');
+}
+
+.button-pop .x-button-label {
+	color: #000;
+	font-family: 'ROBOTO-BOLD'
+}
+
+.button-pop.x-button-pressing .x-button-label {
+	color: #fff;
+	font-family: 'ROBOTO-BOLD'
 }
 
 .button-start {
@@ -61,21 +80,34 @@ body {
 	border-color: #fff;
 }
 
+.button-question.fix {
+	background-color: #5ac2a8;
+	border-color: #5ac2a8;
+}
+
 .button-question.last, 
-.button-question.open.last {
+.button-question.open.last,
+.button-question.fix.last {
 	margin-right: 0px;
 }
 
 .button-question .x-button-label {
 	font-size: 22px;
 	color: #383838;
-	font-family: 'ROBOTO-BOLD'
+	font-family: 'ROBOTO-BOLD';
+	margin-top:  3px;
 }
 
 .button-question.open .x-button-label {
 	font-size: 22px;
 	color: #071e36;
-	font-family: 'ROBOTO-BOLD'
+	font-family: 'ROBOTO-BOLD';
+}
+
+.button-question.fix .x-button-label {
+	font-size: 22px;
+	color: #fff;
+	font-family: 'ROBOTO-BOLD';
 }
 
 .button-answer {
@@ -94,11 +126,18 @@ body {
 .button-answer .x-button-label {
 	font-size: 26px;
 	color: #071e36;
-	font-family: 'ROBOTO-BOLD'
+	font-family: 'ROBOTO-BOLD';
+	margin-top: 2px;
 }
 
 .button-answer.hide {
 	visibility: hidden;
+}
+
+.x-hasbadge .x-badge {
+	color: #c14819 !important;
+	border: 1px solid #c14819;
+	background-color: #FFFFFF;
 }
 
 /*AUTO HIDE ALERT*/
@@ -114,6 +153,32 @@ body {
 	color: white;	
 	border-radius: 6px;
 	padding: 10px;
+}
+
+.pop-alert-container {
+	background-image: url('../images/bg_pu.png');
+	background-size: contain;
+	width: 262px;
+	height: 210px;
+	color: white;
+}
+
+.pop-alert-container .title {
+	padding: 10px;
+	border-bottom: 1px solid;
+	width: 70%;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	font-family: 'ROBOTO-BOLD';
+	font-size: 22px;
+}
+
+.pop-alert-container .message {
+	width: 85%;
+	text-align: center;
+	height: 80px;
+	margin-bottom: 5px;
 }
 
 /*HOME*/
@@ -147,6 +212,7 @@ body {
 	width: 100%;
 	padding: 0px;
 	overflow: hidden;
+	box-shadow: 2px 2px #ccc5b2;
 }
 
 .game-word {
