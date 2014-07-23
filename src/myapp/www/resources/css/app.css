@@ -39,9 +39,27 @@ body {
 }
 
 .button-start {
-	background-image: url('../images/button1.png');
-	width: 107px;
-	height: 45px;
+	background-image: url('../images/home_btn_play1.png');
+	width: 179px;
+	height: 48px;
+}
+
+.button-start.x-button-pressing {
+	background-image: url('../images/home_btn_play2.png');
+}
+
+.button-start .x-button-label {
+	font-size: 28px;
+	color: #fff;
+	font-family: 'ROBOTO-BOLD';
+	/*margin-top:  3px;*/
+}
+
+.button-start.x-button-pressing .x-button-label {
+	font-size: 28px;
+	color: #cb3327;
+	font-family: 'ROBOTO-BOLD';
+	/*margin-top:  3px;*/
 }
 
 .button-back {
@@ -58,12 +76,20 @@ body {
 	height: 35px;
 }
 
+.button-ignore.x-button-pressing {
+	background-image: url('../images/ignorebtn_pressed.png');
+}
+
 .button-help {
 	background-image: url('../images/helpbtn.png');
 	background-size: contain;
 	width: 35px;
 	height: 35px;
 	margin-left: 20px;
+}
+
+.button-help.x-button-pressing {
+	background-image: url('../images/helpbtn_pressed.png');
 }
 
 .button-question {
@@ -74,6 +100,8 @@ body {
 	background-color: #383838;
 	border-color: #383838;
 }
+
+
 
 .button-question.open {
 	background-color: #fff;
@@ -178,13 +206,48 @@ body {
 	width: 85%;
 	text-align: center;
 	height: 80px;
-	margin-bottom: 5px;
+	margin-bottom: 8px;
 }
 
 /*HOME*/
 .home {
-	background-color: #309198;
+	background-color: #f9e59e;
 	width: 100%;
+}
+
+.home-level {
+	background-image: url('../images/home_btn1.png');
+	width: 226px;
+	height: 48px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin-top: 48px;
+	color: white;
+	font-size: 30px;
+	text-align: center;
+	font-family: 'ROBOTO-BOLD';
+}
+
+.home-game-title {
+	color: #d73529;
+	font-size: 26px;
+	margin-top: 20px;
+	/*font-family: 'ROBOTO-BOLD';*/
+}
+
+.home-game-title.option {
+	color: #fff;
+	margin-top: 10px;
+	font-size: 20px;
+}
+
+.home-logo {
+	margin-top: 20px;
+	margin-bottom: 30px;
+}
+
+.home-buttons {
+	background-color: #db614a;
 }
 
 .game {
@@ -193,7 +256,8 @@ body {
 }
 
 .game-topbar {
-	height: 46px;
+	height: 60px;
+	padding-top: 14px;
 	background-image: url('../images/barbg.png');
 	width: 100%;
 	background-size: contain;
@@ -204,7 +268,7 @@ body {
 }
 
 .game-level {
-	font-family: 'ROBOTO-BOLD'
+	font-family: 'ROBOTO-BOLD';
 }
 
 .game-pic {
@@ -228,9 +292,12 @@ body {
 }
 
 .game-score {
-	background-color: #bf4b19;
-	border-radius: 6px;
-	padding: 5px;
+	/*background-color: #bf4b19;
+	border-radius: 6px;*/
+	background-image: url('../images/score_bigbg.png');
+	width: 80px;
+	height: 35px;
+	background-size: 100% 100%;
 }
 
 .game-buttons {

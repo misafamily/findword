@@ -98,11 +98,13 @@ Ext.define('MyApp.util.AppUtil', {
 		me.saveLocalVar('score', 20);
 		me.saveLocalVar('level', 1);
 		me.saveLocalVar('freetime', 1);
+		me.saveLocalVar('opentime', 3);
 
 		me.APPVERSION = me.getLocalVar('app_version');
 		me.SCORE = me.getLocalVar('score');
 		me.LEVEL = me.getLocalVar('level');
 		me.FREETIME = me.getLocalVar('freetime');
+		me.OPENTIME = me.getLocalVar('opentime');
 	},
 
 	initSettings : function() {
@@ -119,17 +121,23 @@ Ext.define('MyApp.util.AppUtil', {
 		if (!me.getLocalVar('freetime')) {
 			me.saveLocalVar('freetime', 1);
 		}
+		if (!me.getLocalVar('opentime')) {
+			me.saveLocalVar('opentime', 3);
+		}
 		
 		me.APPVERSION = me.getLocalVar('app_version');
 		me.SCORE = me.getLocalVar('score');
 		me.LEVEL = me.getLocalVar('level');
 		me.FREETIME = me.getLocalVar('freetime');
+		me.OPENTIME = me.getLocalVar('opentime');
 	},
 
 	save: function() {
 		var me = this;
 		me.saveLocalVar('score', me.SCORE);
 		me.saveLocalVar('level', me.LEVEL);
+		me.saveLocalVar('freetime', me.FREETIME);
+		me.saveLocalVar('opentime', me.OPENTIME);
 	},
 
 	getLocalVar : function(name) {

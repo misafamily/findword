@@ -66,8 +66,8 @@ Ext.define('MyApp.view.Game', {
 						html: '1110',
 						title: 'scorelabel',
 						style: {
-							'margin-left': '10px',
-							'margin-right': '10px'
+							'margin-left': '0px',
+							'margin-right': '5px'
 						}
 					}, {
 						xtype: 'image',
@@ -110,6 +110,7 @@ Ext.define('MyApp.view.Game', {
 			}, {
 				xtype: 'button',
 				cls: 'button-icon button-help',
+				badgeText: '3',
 				title: 'helpbtn',
 				itemId: 'helpbtnid'
 			}]
@@ -276,17 +277,19 @@ Ext.define('MyApp.view.Game', {
 		if (!me.levelLabel) me.levelLabel = me.down('label[title="levellabel"]');
 		if (!me.scoreLabel) me.scoreLabel = me.down('label[title="scorelabel"]');
 		if (!me.freetimeButton) me.freetimeButton = me.down('button[title="freetimebtn"]');
+		if (!me.helpButton) me.helpButton = me.down('button[title="helpbtn"]');
 
 		me.levelLabel.setHtml('CÂU ' + lv);
 		me.scoreLabel.setHtml(AppUtil.SCORE);
 		me.freetimeButton.setBadgeText(AppUtil.FREETIME);
+		me.helpButton.setBadgeText(AppUtil.OPENTIME);
 	},
 
 	renderQuestion: function(question) { //is Question model
 		var me = this;
 		if (!me.image) me.image = me.down('image[title="gamethumb"]');
 		//AppUtil.alert('resources/data/' + question.data.thumb, 'src');
-		me.image.setSrc(question.data.thumb);
+		me.image.setSrc('resources/data/' +  question.data.thumb);
 		me.generateQuestion(question.data.word.toUpperCase());
 	},
 
@@ -325,7 +328,7 @@ Ext.define('MyApp.view.Game', {
 		var temp = question;
 		var count = temp.length;
 		if (count > me.MAXA*2) {
-			AppUtil.alert('Câu hỏi quá dài');
+			AppUtil.alert('Câu hỏi quá dài','Lỗi');
 			return;
 		}
 		//var con = me.q1;
@@ -443,25 +446,29 @@ Ext.define('MyApp.view.Game', {
 			}
 		} else if (title == 'freetimebtnid') {
 			if (AppUtil.FREETIME > 0) {
-				var msg = 'Quyền Bỏ Qua Câu Đố còn {0} lần. Đồng ý bỏ qua câu đố này ?';
+				var msg = 'Quyền Bỏ Qua Câu Đố còn {0} lần. Bạn đồng ý bỏ qua câu đố này?';
 				AppUtil.confirm(Ext.util.Format.format(msg, AppUtil.FREETIME), 'Bỏ Qua Câu Đố', function() {
 					AppUtil.FREETIME -= 1;
 					AppUtil.saveLocalVar('freetime', AppUtil.FREETIME);
 					me.ignoreQuestion();
 				});
 			} else {
-				AppUtil.alert('Bạn đã sử dụng hết số lần Bỏ Qua Câu Đố. Hãy dùng xu để Mở Ô Đáp Án.', 'Bỏ Qua Câu Đố');
+				AppUtil.alert('Bạn đã sử dụng hết số lần Bỏ Qua Câu Đố.', 'Bỏ Qua Câu Đố');
 			}
 		} else if (title == 'helpbtnid') {
 			if (AppUtil.SCORE >= 3) {
-				var msg = 'Mở 1 chữ trong ô đáp án sẽ bị trừ 5 xu. Bạn đồng ý chứ ?';
-				AppUtil.confirm(msg, 
-					'Mở Ô Đáp Án',
-					function() {
-						//AppUtil.SCORE -= 5;
-						//AppUtil.saveLocalVar('score', AppUtil.SCORE);
-						me.open1Char();
-					});
+				if (AppUtil.OPENTIME > 0) {
+					var msg = 'Mở 1 chữ trong ô đáp án sẽ bị trừ 5 xu. Bạn đồng ý chứ?<br/>(Được sử dụng 3 lần mỗi câu)';
+					AppUtil.confirm(msg, 
+						'Mở Ô Đáp Án',
+						function() {
+							AppUtil.OPENTIME--;
+							me.open1Char();
+						});
+				} else {
+					AppUtil.alert('Bạn đã sử dụng hết 3 lần cho câu đố này rồi.', 'Mở Ô Đáp Án');
+				}
+				
 			} else {
 				AppUtil.alert('Số xu đã hết. Hãy cố gắng suy nghĩ nào.', 'Mở Ô Đáp Án');
 			}
