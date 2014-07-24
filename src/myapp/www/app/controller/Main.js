@@ -17,6 +17,13 @@ Ext.define('MyApp.controller.Main', {
 				}
 			},
 
+			'home button[title="info"]': {
+				tap: function() {
+					var me = this;
+					AppUtil.alert('CÙNG CHƠI ĐOÁN CHỮ<br/>Phiên bản 1.0<br/>Liên hệ: admin@gmail.com<br/>@Ninja Team, 2014', 'THÔNG TIN');
+				}
+			},
+
 			'game button[title="back"]': {
 				tap: function() {
 					var me = this;

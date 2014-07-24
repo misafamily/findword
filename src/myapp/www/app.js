@@ -11,6 +11,7 @@
 */
 
 Ext.application({
+    //phoneStartupScreen: 'resources/images/Loading.jpg',
     name: 'MyApp',
 
     requires : ['Ext.MessageBox', 'MyApp.util.AppUtil', 'MyApp.util.offline.Connection', 'MyApp.util.offline.Proxy'],

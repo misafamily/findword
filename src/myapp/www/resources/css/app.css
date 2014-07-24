@@ -55,6 +55,16 @@ body {
 	/*margin-top:  3px;*/
 }
 
+.button-info {
+	background-image: url('../images/home_btn_info1.png');
+	width: 47px;
+	height: 45px;
+}
+
+.button-info.x-button-pressing {
+	background-image: url('../images/home_btn_info2.png');
+}
+
 .button-start.x-button-pressing .x-button-label {
 	font-size: 28px;
 	color: #cb3327;
@@ -221,7 +231,6 @@ body {
 	height: 48px;
 	background-size: contain;
 	background-repeat: no-repeat;
-	margin-top: 48px;
 	color: white;
 	font-size: 30px;
 	text-align: center;
@@ -238,12 +247,13 @@ body {
 .home-game-title.option {
 	color: #fff;
 	margin-top: 10px;
-	font-size: 20px;
+	font-size: 16px;
+	margin-bottom: 8px;
 }
 
 .home-logo {
 	margin-top: 20px;
-	margin-bottom: 30px;
+	margin-bottom: 5px;
 }
 
 .home-buttons {
@@ -276,7 +286,7 @@ body {
 	width: 100%;
 	padding: 0px;
 	overflow: hidden;
-	box-shadow: 2px 2px #ccc5b2;
+	/*box-shadow: 2px 2px #ccc5b2;*/
 }
 
 .game-word {
