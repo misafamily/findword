@@ -241,7 +241,7 @@ Ext.define('MyApp.view.Game', {
 		//me.image.setWidth(me.image.parent.getWidth());
 		//me.image.setHeight(me.image.parent.getHeight());
 
-		var totalButton = 8*2 + 7*2;
+		var totalButton = me.MAXQ*2 + me.MAXA*2;
 		me.aButtons = [];
 		for (var i = 0; i < totalButton; i++) {
 			me.aButtons.push(Ext.create('Ext.Button', {text: ''}));
@@ -287,6 +287,7 @@ Ext.define('MyApp.view.Game', {
 
 	renderQuestion: function(question) { //is Question model
 		var me = this;
+		me.currentQuestion = question;
 		if (!me.image) me.image = me.down('image[title="gamethumb"]');
 		//AppUtil.alert('resources/data/' + question.data.thumb, 'src');
 		me.image.setSrc('resources/data/' +  question.data.thumb);
@@ -514,7 +515,7 @@ Ext.define('MyApp.view.Game', {
 			console.log('RIGHT ANSWER: ', me.ANSWER);
 			me.timeout = true;
 			if (answer == me.ANSWER) {
-				AppUtil.autoAlert('Đáp án chính xác');
+				//AppUtil.autoAlert('Đáp án chính xác');
 				me.answerRight();
 			} else {
 				AppUtil.autoAlert('Đoán sai rồi');
@@ -536,9 +537,15 @@ Ext.define('MyApp.view.Game', {
 
 		AppUtil.save();
 
-		Ext.defer(function(){
-			me.playGame();
-		}, 300);
+		me.currentQuestion.data.status = 'cleared';
+		me.currentQuestion.save(function() {
+			AppUtil.congrate(me.currentQuestion.data.fullword.toUpperCase(), function() {
+				Ext.defer(function(){
+					me.playGame();
+				}, 300);
+			});
+		});
+
 		
 	},
 

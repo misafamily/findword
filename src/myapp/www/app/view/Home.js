@@ -29,7 +29,8 @@ Ext.define('MyApp.view.Home', {
 				},
 				items:[{
 					xtype: 'label',
-					html: 'CÂU XXX'
+					html: '',
+					title: 'cauxxx'
 				}]
 			}, {
 				xtype: 'label',
@@ -56,12 +57,12 @@ Ext.define('MyApp.view.Home', {
 			items: [{
 				xtype: 'button',
 				cls: 'button-icon button-start',
-				text: 'CHƠI',
+				text: 'VÀO CHƠI',
 				title: 'start'
 			},  {
 				xtype: 'label',
 				cls: 'home-game-title option',
-				html: 'TÙY CHỌN'
+				html: 'THÔNG TIN'
 			}, {
 				xtype: 'container',
 				layout: {
@@ -81,5 +82,14 @@ Ext.define('MyApp.view.Home', {
 	initialize: function() {
 		var me = this;
 		me.callParent(arguments);
+		me.updateInfo();
+		MyApp.app.on('gamedata_changed', me.updateInfo, me);
+	},
+
+	updateInfo: function() {
+		var me = this;
+		if (!me.levelLabel) me.levelLabel = me.down('label[title="cauxxx"]');
+
+		me.levelLabel.setHtml('CÂU ' + AppUtil.LEVEL);
 	}
 });

@@ -1,11 +1,13 @@
 Ext.define('MyApp.util.AppUtil', {
 	alternateClassName : 'AppUtil',
-	requires : ['MyApp.model.SavedVar','MyApp.view.AutoHideAlert', 'MyApp.view.pop.Alert', 'MyApp.view.pop.Confirm'],
+	requires : ['MyApp.model.SavedVar','MyApp.view.AutoHideAlert', 
+				'MyApp.view.pop.Alert', 'MyApp.view.pop.Confirm',
+				'MyApp.view.pop.Congrate'],
 	singleton : true,
 	dbConnection : null,
 	popupAdded: [],
 
-	appVersion: '1.1',
+	appVersion: '1.15',
 	
 	/*
 		1.0: starting app
@@ -30,7 +32,7 @@ Ext.define('MyApp.util.AppUtil', {
 			datastore.load(function(records) {
 				//console.log('records', records);
 				localstore.load(function(localRecords){
-					//console.log('localRecords', localRecords);
+					console.log('localRecords', localRecords);
 					if (localRecords.length < 1) {
 						localstore.setData(records);
 						localstore.sync({
@@ -41,12 +43,13 @@ Ext.define('MyApp.util.AppUtil', {
 					} else {
 						//check for new item
 						Ext.each(records, function(dataitem, i) {
-							var check = me.checkExist(dataitem, localRecords);						
+							var check = me.checkExist(dataitem, localRecords);	
+							console.log('check: ', check);					
 							if (check) {
-								if (check.data.name != dataitem.data.name) {
-									check.data.name = dataitem.data.name;
+								//if (check.data.word != dataitem.data.word || ) {
+									check.data = dataitem.data;
 									check.save();
-								}
+								//}
 							} else {
 								dataitem.save();
 							}
@@ -105,6 +108,8 @@ Ext.define('MyApp.util.AppUtil', {
 		me.LEVEL = me.getLocalVar('level');
 		me.FREETIME = me.getLocalVar('freetime');
 		me.OPENTIME = me.getLocalVar('opentime');
+
+		me.save();
 	},
 
 	initSettings : function() {
@@ -138,6 +143,8 @@ Ext.define('MyApp.util.AppUtil', {
 		me.saveLocalVar('level', me.LEVEL);
 		me.saveLocalVar('freetime', me.FREETIME);
 		me.saveLocalVar('opentime', me.OPENTIME);
+
+		MyApp.app.fireEvent('gamedata_changed');
 	},
 
 	getLocalVar : function(name) {
@@ -192,6 +199,15 @@ Ext.define('MyApp.util.AppUtil', {
 		});*/
 		//this.popupAdded.push(alert);
 		//MyApp.app.fireEvent(AppConfig.eventData.APP_MASK);
+	},
+
+	congrate: function(question, callback) {
+		var me = this;
+		//title = title || '';
+
+		if (!me._popCongrate) me._popCongrate = Ext.create('MyApp.view.pop.Congrate');
+        Ext.Viewport.add(me._popCongrate);
+        me._popCongrate.showMe(question, callback);
 	},
 
 	autoAlert: function (msg) {

@@ -11,6 +11,10 @@ Ext.define('MyApp.model.Question', {
             	type:'string'
             },
             {
+                name:'fullword',//VIET LIEN TU
+                type:'string'
+            },
+            {
                 name:'thumb',//filename.jpg or png
                 type:'string'
             },
