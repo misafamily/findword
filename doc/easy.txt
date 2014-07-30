@@ -28,3 +28,24 @@
 28. Cử tạ: cử nhân + quả tạ
 29. Xa xôi: nhìn xa + gói xôi
 30. Gà gáy: con gà + người ngủ gáy
+//new
+31. Cao ốc: hình nhà cao + con ốc
+32. Thọ Xương: sữa ông Thọ + cục xương
+33. Tháp Mười: tháp efel + điểm 10
+34. Chia tay: phép chia + bàn tay
+35. Nhân bản: phép nhân + cờ Nhật Bản
+35. Song kiếm: 2 cây kiếm
+36. Chồng cày vợ cấy: chồng ôm điếu cày, vợ cấy dưới ruộng
+37. Bơi chó: nguoi bơi + con chó
+38. Du lịch: du thuyền + tờ lịch
+39. Cá hú: con cá + sói hú
+40. Phi thuyền: bác Ba Phi + thuyền
+41. Đuong chân trời: con duong + bàn chân + bầu trời
+42. Hoa hướng dương: hoa + mui tên + mặt trời
+43. Hoa giấy: hoa + tờ giấy
+44. Ngũ Hành Sơn: 5 quả núi
+45. Hà mã: con sông + con ngựa
+46. Cá mập: cá + võ sĩ sumo
+47. Cung thủ: cái cung + đầu heo
+48. Cung tên: cai cung + Nguyen Van A
+49. Phi tiêu: thùng phi + hat tiêu
