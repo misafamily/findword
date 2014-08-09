@@ -2,6 +2,18 @@ body {
 	font-family: 'ROBOTO-LIGHT'
 }
 
+.x-mask.x-has-message .x-loading-spinner-outer {
+	height: 80px;
+}
+
+.x-mask .x-mask-inner .x-mask-message {
+	color: #fff;
+	bottom: 15px;
+}
+
+.x-mask .x-mask-inner {
+	background: #0C4B41;
+}
 /*BUTTONS*/
 .button-icon {
 	background-color: transparent;
@@ -28,6 +40,11 @@ body {
 	width: 137px;
 }
 
+.button-pop.intro {
+	width: 137px;
+	margin-left: 10px;
+}
+
 .button-pop.x-button-pressing {
 	background-image: url('../images/btn_PU_active.png');
 }
@@ -35,6 +52,10 @@ body {
 .button-pop .x-button-label {
 	color: #000;
 	font-family: 'ROBOTO-BOLD'
+}
+
+.button-pop.intro .x-button-label {
+	font-size: 14px;
 }
 
 .button-pop.x-button-pressing .x-button-label {
@@ -115,11 +136,44 @@ body {
 	border-color: #383838;
 }
 
+.button-gift {
+	border-radius: 0px;
+	width: 60px;
+	height: 60px;
+	margin-right: 25px;
+	background-image: url('../images/gift.png');
+	border-color: transparent;
+	background-size: 100% 100%;
+}
+
+.button-gift.last {
+	margin-right: 0px;
+}
+
+.button-gift.open {
+	background-image: url('../images/gift_open.png');
+}
+
+.button-gift .x-button-label {
+	font-size: 36px;
+	color: #931628;
+	font-family: 'ROBOTO-BOLD';
+	margin-top: 9px;
+}
+
 
 
 .button-question.open {
 	background-color: #fff;
 	border-color: #fff;
+}
+
+.button-question.open.hide {
+	visibility: hidden;
+}
+
+.button-question.open.wrong .x-button-label {
+	color: red;
 }
 
 .button-question.fix {
@@ -151,6 +205,8 @@ body {
 	color: #fff;
 	font-family: 'ROBOTO-BOLD';
 }
+
+
 
 .button-answer {
 	border-radius: 6px;
@@ -200,9 +256,11 @@ body {
 .pop-alert-container {
 	background-image: url('../images/bg_pu.png');
 	background-size: contain;
-	width: 262px;
-	height: 210px;
+	width: 282px;
+	height: 230px;
 	color: white;
+	background-repeat: no-repeat;
+	background-repeat: no-repeat;
 }
 
 .pop-alert-container .title {
@@ -219,7 +277,7 @@ body {
 .pop-alert-container .message {
 	width: 85%;
 	text-align: center;
-	height: 80px;
+	height: 92px;
 	margin-bottom: 8px;
 }
 
@@ -230,6 +288,17 @@ body {
 	background-image: url('../images/Chuc_mung_BG.jpg');
 	color: white;
 	font-size: 24px;
+}
+
+.pop-congrate-container.gift {
+	background-image: url('../images/gift_bg.jpg');
+}
+
+.doandung.gift {
+	font-size: 20px;
+	margin: 15px;
+	margin-top: 0px;
+	margin-bottom: 20px;
 }
 
 /*HOME*/
@@ -279,8 +348,8 @@ body {
 }
 
 .game-topbar {
-	height: 60px;
-	padding-top: 14px;
+	height: 68px;
+	padding-top: 18px;
 	background-image: url('../images/barbg.png');
 	width: 100%;
 	background-size: contain;
@@ -319,7 +388,7 @@ body {
 	border-radius: 6px;*/
 	background-image: url('../images/score_bigbg.png');
 	width: 80px;
-	height: 35px;
+	height: 32px;
 	background-size: 100% 100%;
 }
 
@@ -344,21 +413,29 @@ body {
 	width: 288px;
 	height: 90px;
 	font-family: 'ROBOTO-BOLD';
-	margin-bottom: 40px;
+	margin-bottom: 15px;
 }
 
 .pop-congrate-container .cauxxx {
 	font-family: 'ROBOTO-BOLD';
 	font-size: 26px;
 	margin-top: 10px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 .pop-congrate-container .dapan {
 	background-image: url('../images/Chuc_mung_2.png');
-	background-size: contain;
+	background-size:  100% 100%;
 	width: 300px;
-	height: 120px;
+	height: 100px;
 	background-repeat: no-repeat;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
+
+.pop-congrate-container .dapan.gift {
+	background-image: url('../images/gift_bg_small.png');
+	height: 156px;
+	width: 280px;
+	margin-bottom: 5px;
+}
+

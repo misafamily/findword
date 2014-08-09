@@ -50,13 +50,13 @@ Ext.application({
        
         
         this.onDeviceReady();
-        //document.addEventListener("deviceready", this.onDeviceReady, false);
+        document.addEventListener("deviceready", this.onDeviceReady, false);
         // Initialize the main view
        
     },
     
     onDeviceReady: function() {
-
+        if (navigator.splashscreen) navigator.splashscreen.show();
         Ext.Msg.defaultAllowedConfig.showAnimation = false;
         Ext.Msg.defaultAllowedConfig.hideAnimation = false;
 
@@ -66,11 +66,18 @@ Ext.application({
         AppUtil.initAppData(function(){
             console.log('init done');
             var store = Ext.getStore('Questions');
+            store.changeQueryByType('default');
             store.load(function(records){
                 console.log('load done');
-                Ext.fly('appLoadingIndicator').destroy();   
+                AppUtil.allQuestions = Ext.clone(store.data.items);
+                //Ext.fly('appLoadingIndicator').destroy();   
                 Ext.Viewport.add(Ext.create('MyApp.view.Main'));   
                 AppUtil.hideLoading(); 
+
+                Ext.defer(function(){
+                    // Remove the splash screen
+                     if (navigator.splashscreen) navigator.splashscreen.hide();      
+                },2000);
             });       
         });
 

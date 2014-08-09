@@ -10,7 +10,7 @@ Ext.define('MyApp.view.Home', {
 		},
 		items: [{
 			xtype: 'container',
-			flex: 2,
+			flex: 3,
 			layout: {
 				type: 'vbox',
 				align: 'center',
@@ -40,8 +40,8 @@ Ext.define('MyApp.view.Home', {
 				xtype: 'image',
 				cls: 'home-logo',
 				src: 'resources/images/Icon.png',
-				width: 146,
-				height: 146,
+				width: 166,
+				height: 166,
 				mode: ''
 			}]
 		}, {
@@ -49,26 +49,33 @@ Ext.define('MyApp.view.Home', {
 			width: '100%',
 			cls: 'home-buttons',
 			layout: {
-				type: 'vbox',
+				type: 'hbox',
 				align: 'center',
 				pack: 'center'
 			},
 			flex: 1,
 			items: [{
+				xtype: 'spacer',
+				width: 57
+			}, {
 				xtype: 'button',
 				cls: 'button-icon button-start',
-				text: 'VÀO CHƠI',
+				text: 'CHƠI',
 				title: 'start'
-			},  {
+			},  /*{
 				xtype: 'label',
 				cls: 'home-game-title option',
 				html: 'THÔNG TIN'
-			}, {
+			},*/ {
 				xtype: 'container',
 				layout: {
 					type: 'hbox',
 					align: 'center',
 					pack: 'center'
+				},
+				
+				style: {
+					'margin-left': '20px'
 				},
 				items:[{
 					xtype: 'button',

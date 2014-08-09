@@ -8,7 +8,7 @@ Ext.define('MyApp.store.Questions', {
     		type:'sqlitestorage',
     		dbConfig: {
 	    		tablename:'question',    			
-    			dbQuery:'SELECT * from question WHERE status="no" ORDER BY id ASC'
+    			dbQuery:'SELECT * from question WHERE status="no" ORDER BY uid ASC'
     		},
     		reader: {
                type: 'array'
@@ -16,8 +16,14 @@ Ext.define('MyApp.store.Questions', {
        }
     },
 
-    changeQueryByType: function(level) {
+    changeQueryByType: function(type) {
         var me = this;
-        me.getProxy().config.dbConfig.dbQuery = Ext.util.Format.format('SELECT * FROM question WHERE level = "{0}" AND status="no" ORDER BY id ASC', level);
+        var query = 'SELECT * from question WHERE status="no" ORDER BY id ASC';
+        switch (type) {
+            case 'all':
+                query = 'SELECT * from question';
+                break;
+        }
+        me.getProxy().config.dbConfig.dbQuery = query;//Ext.util.Format.format('SELECT * FROM question WHERE level = "{0}" AND status="no" ORDER BY id ASC', level);
     }
 });

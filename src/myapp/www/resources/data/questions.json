@@ -1,32 +1,633 @@
 {
     "questions": [
         {
-            "uid": "e1",
-            "word": "muahedenroi",
-            "fullword": "mua he den roi",
-            "thumb": "sample.jpg",
+            "uid": 1,
+            "word": "baba",
+            "fullword": "ba ba",
+            "thumb": "1_ba_ba.jpg",
             "level": 1
         },
         {
-            "uid": "e2",
-            "word": "phuongnochua",
-            "fullword": "phuong no chua",
-            "thumb": "sample1.jpg",
+            "uid": 2,
+            "word": "bosua",
+            "fullword": "bò sữa",
+            "thumb": "3_bo_sua.jpg",
             "level": 1
         },
         {
-            "uid": "e3",
-            "word": "misababy",
-            "fullword": "misa baby",
-            "thumb": "sample.jpg",
+            "uid": 3,
+            "word": "cahu",
+            "fullword": "cá hú",
+            "thumb": "4_ca_hu.jpg",
             "level": 1
         },
         {
-            "uid": "e4",
-            "word": "bangbang",
-            "fullword": "bang bang",
-            "thumb": "sample1.jpg",
+            "uid": 4,
+            "word": "caooc",
+            "fullword": "cao ốc",
+            "thumb": "7_cao_oc.jpg",
+            "level": 1
+        }, 
+        {
+            "uid": 5,
+            "word": "hathicau",
+            "fullword": "hà thị cầu",
+            "thumb": "15_ha_thi_cau.jpg",
+            "level": 1
+        },
+        {
+            "uid": 6,
+            "word": "daohoa",
+            "fullword": "đào hoa",
+            "thumb": "8_dao_hoa.jpg",
+            "level": 1
+        },
+        {
+            "uid": 7,
+            "word": "camap",
+            "fullword": "cá mập",
+            "thumb": "6_ca_map.jpg",
+            "level": 1
+        },
+        {
+            "uid": 8,
+            "word": "codau",
+            "fullword": "cô dâu",
+            "thumb": "11_co_dau.jpg",
+            "level": 1
+        },
+        {
+            "uid": 9,
+            "word": "mattien",
+            "fullword": "mặt tiền",
+            "thumb": "20_mat_ tien.jpg",
+            "level": 1
+        },
+        {
+            "uid": 10,
+            "word": "mittonu",
+            "fullword": "mít tố nữ",
+            "thumb": "21_mit_to_nu.jpg",
+            "level": 1
+        },
+        {
+            "uid": 11,
+            "word": "nhanban",
+            "fullword": "nhân bản",
+            "thumb": "28_nhan_ban.jpg",
+            "level": 1
+        },
+         {
+            "uid": 12,
+            "word": "phonui",
+            "fullword": "phố núi",
+            "thumb": "32_pho_nui.jpg",
+            "level": 1
+        },
+         {
+            "uid": 13,
+            "word": "motnua",
+            "fullword": "một nửa",
+            "thumb": "24_mot_nua.jpg",
+            "level": 1
+        },
+         {
+            "uid": 14,
+            "word": "dieuhanh",
+            "fullword": "điều hành",
+            "thumb": "13_dieu_hanh.jpg",
+            "level": 1
+        },
+         {
+            "uid": 15,
+            "word": "nuocmatcasau",
+            "fullword": "nước mắt cá sấu",
+            "thumb": "30_nuoc_mat_ca_sau.jpg",
+            "level": 1
+        },
+        {
+            "uid": 16,
+            "word": "ngoisao",
+            "fullword": "ngôi sao",
+            "thumb": "27_ngoi_sao.jpg",
+            "level": 1
+        },
+         {
+            "uid": 17,
+            "word": "lucbat",
+            "fullword": "lục bát",
+            "thumb": "18_luc_bat.jpg",
+            "level": 1
+        },
+         {
+            "uid": 18,
+            "word": "thongbao",
+            "fullword": "thông báo",
+            "thumb": "37_thong_bao.jpg",
+            "level": 1
+        },
+         {
+            "uid": 19,
+            "word": "thuocno",
+            "fullword": "thuốc nổ",
+            "thumb": "38_thuoc_no.jpg",
+            "level": 1
+        },
+        {
+            "uid": 20,
+            "word": "phitruong",
+            "fullword": "phi trường",
+            "thumb": "49_Phi_truong.jpg",
+            "level": 1
+        },
+        {        
+            "uid": 21,
+            "word": "tieubieu",
+            "fullword": "tiêu biểu",
+            "thumb": "40_tieu_bieu.jpg",
+            "level": 1
+        },
+         {
+            "uid": 22,
+            "word": "traidat",
+            "fullword": "trái đất",
+            "thumb": "43_trai_dat.jpg",
+            "level": 1
+        },
+         {
+            "uid": 23,
+            "word": "votinh",
+            "fullword": "vô tình",
+            "thumb": "48_vo_tinh.jpg",
+            "level": 1
+        },
+         {
+            "uid": 24,
+            "word": "veso",
+            "fullword": "vé số",
+            "thumb": "44_ve_so.jpg",
+            "level": 1
+        },
+         {
+            "uid": 25,
+            "word": "songque",
+            "fullword": "sông quê",
+            "thumb": "34_song_que.jpg",
+            "level": 1
+        },
+        {        
+            "uid": 26,
+            "word": "xuongong",
+            "fullword": "xương ống",
+            "thumb": "45_xuong_ong.jpg",
+            "level": 1
+        },
+         {
+            "uid": 27,
+            "word": "bahoa",
+            "fullword": "ba hoa",
+            "thumb": "2_ba_hoa.jpg",
+            "level": 1
+        },
+         {
+            "uid": 28,
+            "word": "vongua",
+            "fullword": "vó ngựa",
+            "thumb": "47_vo_ngua.jpg",
+            "level": 1
+        },
+         {
+            "uid": 29,
+            "word": "neodon",
+            "fullword": "neo đơn",
+            "thumb": "26_neo_don.jpg",
+            "level": 1
+        },
+         {
+            "uid": 30,
+            "word": "tradao",
+            "fullword": "trà đạo",
+            "thumb": "42_tra_dao.jpg",
+            "level": 1
+        },
+        {        
+            "uid": 31,
+            "word": "galang",
+            "fullword": "ga lăng",
+            "thumb": "9_ga_lang.jpg",
+            "level": 1
+        },
+         {
+            "uid": 32,
+            "word": "chiatay",
+            "fullword": "chia tay",
+            "thumb": "10_chia_tay.jpg",
+            "level": 1
+        },
+         {
+            "uid": 33,
+            "word": "danba",
+            "fullword": "đàn bà",
+            "thumb": "12_dan_ba.jpg",
+            "level": 1
+        },
+         {
+            "uid": 34,
+            "word": "muaphun",
+            "fullword": "mưa phùn",
+            "thumb": "25_mua_phun.jpg",
+            "level": 1
+        },
+         {
+            "uid": 35,
+            "word": "thapmuoi",
+            "fullword": "tháp mười",
+            "thumb": "35_thap_muoi.jpg",
+            "level": 1
+        },
+        {        
+            "uid": 36,
+            "word": "doimoi",
+            "fullword": "đồi mồi",
+            "thumb": "14_doi_moi.jpg",
+            "level": 1
+        },
+         {
+            "uid": 37,
+            "word": "matbang",
+            "fullword": "mặt bằng",
+            "thumb": "19_mat_bang.jpg",
+            "level": 1
+        },
+         {
+            "uid": 38,
+            "word": "nuochoa",
+            "fullword": "nước hoa",
+            "thumb": "29_nuoc_hoa.jpg",
+            "level": 1
+        },
+         {
+            "uid": 39,
+            "word": "thino",
+            "fullword": "thị nở",
+            "thumb": "36_thi_no.jpg",
+            "level": 1
+        },
+         {
+            "uid": 40,
+            "word": "mituot",
+            "fullword": "mít ướt",
+            "thumb": "22_mit_uot.jpg",
+            "level": 1
+        },
+
+        {        
+            "uid": 41,
+            "word": "vitinh",
+            "fullword": "vi tính",
+            "thumb": "46_vi_tinh.jpg",
+            "level": 1
+        },
+         {
+            "uid": 42,
+            "word": "tieudieu",
+            "fullword": "tiêu điều",
+            "thumb": "41_tieu_dieu.jpg",
+            "level": 1
+        },
+         {
+            "uid": 43,
+            "word": "hoatay",
+            "fullword": "hoa tay",
+            "thumb": "16_hoa_tay.jpg",
+            "level": 1
+        },
+         {
+            "uid": 44,
+            "word": "hocduong",
+            "fullword": "học đường",
+            "thumb": "17_hoc_duong.jpg",
+            "level": 1
+        },
+         {
+            "uid": 45,
+            "word": "samset",
+            "fullword": "sấm sét",
+            "thumb": "33_sam_set.jpg",
+            "level": 1
+        },
+        {
+            "uid": 46,
+            "word": "calang",
+            "fullword": "cá lăng",
+            "thumb": "5_ca_lang.jpg",
+            "level": 1
+        },
+         {
+            "uid": 47,
+            "word": "tiendao",
+            "fullword": "tiền đạo",
+            "thumb": "39_tien_dao.jpg",
+            "level": 1
+        },
+         {
+            "uid": 48,
+            "word": "phithien",
+            "fullword": "phi thiên",
+            "thumb": "51_Phi_thien.jpg",
+            "level": 1
+        },
+	{
+            "uid": 49,
+            "word": "hanhtrinh",
+            "fullword": "hành trình",
+            "thumb": "52_Hanh_Trinh.jpg",
+            "level": 1
+        },
+	{
+            "uid": 50,
+            "word": "hoahuongduong",
+            "fullword": "hoa hướ ng dương",
+            "thumb": "64_Hoa_huong_duong.jpg",
+            "level": 1
+        },
+	{
+            "uid": 51,
+            "word": "yeucau",
+            "fullword": "yêu cầu",
+            "thumb": "70_Yeu_cau.jpg",
+            "level": 1
+        },
+	{
+            "uid": 52,
+            "word": "hanhhung",
+            "fullword": "hành hung",
+            "thumb": "53_Hanh_hung.jpg",
+            "level": 1
+        },{
+            "uid": 53,
+            "word": "dongvat",
+            "fullword": "động vật",
+            "thumb": "76_Dong_vat.jpg",
+            "level": 1
+        },{
+            "uid": 54,
+            "word": "trinhduyet",
+            "fullword": "trình duyệt",
+            "thumb": "57_Trinh_duyet.jpg",
+            "level": 1
+        },{
+            "uid": 55,
+            "word": "daiduong",
+            "fullword": "đại dương",
+            "thumb": "74_Dai_duong.jpg",
+            "level": 1
+        },
+	{
+            "uid": 56,
+            "word": "nhatky",
+            "fullword": "nhật ký",
+            "thumb": "65_Nhat_ky.jpg",
+            "level": 1
+        },
+	{
+            "uid": 57,
+            "word": "phidao",
+            "fullword": "phi đao",
+            "thumb": "50_Phi_dao.jpg",
+            "level": 1
+        },{
+            "uid": 58,
+            "word": "cuta",
+            "fullword": "cử tạ",
+            "thumb": "62_Cu_ta.jpg",
+            "level": 1
+        },{
+            "uid": 59,
+            "word": "songkiem",
+            "fullword": "song kiếm",
+            "thumb": "69_Song_kiem.jpg",
+            "level": 1
+        },{
+            "uid": 60,
+            "word": "tinhyeu",
+            "fullword": "tình yêu",
+            "thumb": "75_tinh_yeu.jpg",
+            "level": 1
+        },
+	{
+            "uid": 61,
+            "word": "phongba",
+            "fullword": "phong ba",
+            "thumb": "81_Phong_ba.jpg",
+            "level": 1
+        },
+	{
+            "uid": 62,
+            "word": "phuongtroi",
+            "fullword": "phương trời",
+            "thumb": "56_Phuong_troi.jpg",
+            "level": 1
+        },{
+            "uid": 63,
+            "word": "trinhchieu",
+            "fullword": "trình chiếu",
+            "thumb": "58_Trinh_chieu.jpg",
+            "level": 1
+        },{
+            "uid": 64,
+            "word": "duahanh",
+            "fullword": "dưa hành",
+            "thumb": "54_Dua_hanh.jpg",
+            "level": 1
+        },{
+            "uid": 65,
+            "word": "thuytinh",
+            "fullword": "thủy tinh",
+            "thumb": "73_thuy_tinh.jpg",
+            "level": 1
+        },
+	{
+            "uid": 66,
+            "word": "thoho",
+            "fullword": "thợ hồ",
+            "thumb": "61_Tho_ho.jpg",
+            "level": 1
+        },
+	{
+            "uid": 67,
+            "word": "hoagiay",
+            "fullword": "hoa giấy",
+            "thumb": "64_Hoa_giay.jpg",
+            "level": 1
+        },{
+            "uid": 68,
+            "word": "trangquynh",
+            "fullword": "trạng quỳnh",
+            "thumb": "71_trang_quynh.jpg",
+            "level": 1
+        },{
+            "uid": 69,
+            "word": "hoamau",
+            "fullword": "hoa màu",
+            "thumb": "55_Hoa_mau.jpg",
+            "level": 1
+        },{
+            "uid": 70,
+            "word": "caydua",
+            "fullword": "cây dừa",
+            "thumb": "79_Cay_dua.jpg",
+            "level": 1
+        },
+	{
+            "uid": 71,
+            "word": "chieuchi",
+            "fullword": "chiếu chỉ",
+            "thumb": "59_Chieu_chi.jpg",
+            "level": 1
+        },
+	{
+            "uid": 72,
+            "word": "hoadaquy",
+            "fullword": "hoa dã quỳ",
+            "thumb": "78_Da_quy.jpg",
+            "level": 1
+        },{
+            "uid": 73,
+            "word": "hanhtrinh",
+            "fullword": "hành trình",
+            "thumb": "67_hanh_trinh.jpg",
+            "level": 1
+        },{
+            "uid": 74,
+            "word": "dulich",
+            "fullword": "du lịch",
+            "thumb": "63_Du_lich.jpg",
+            "level": 1
+        },{
+            "uid": 75,
+            "word": "dalat",
+            "fullword": "đà lạt",
+            "thumb": "77_Da_lat.jpg",
+            "level": 1
+        },
+
+	{
+            "uid": 76,
+            "word": "xuongrong",
+            "fullword": "xương rồng",
+            "thumb": "60_Xuong_rong.jpg",
+            "level": 1
+        },
+	{
+            "uid": 77,
+            "word": "tocky",
+            "fullword": "tốc ký",
+            "thumb": "68_toc_ky.jpg",
+            "level": 1
+        },{
+            "uid": 78,
+            "word": "songgio",
+            "fullword": "sóng gió",
+            "thumb": "80_Song-gio.jpg",
+            "level": 1
+        },{
+            "uid": 79,
+            "word": "tuongtrinh",
+            "fullword": "tường trình",
+            "thumb": "66_Tuong_trinh.jpg",
+            "level": 1
+        },{
+            "uid": 80,
+            "word": "maucosacao",
+            "fullword": "màu cờ sắc áo",
+            "thumb": "82_mau_co_sac_ao.jpg",
+            "level": 1
+        },{
+            "uid": 81,
+            "word": "caycau",
+            "fullword": "cây cầu",
+            "thumb": "72_Cay_cau.jpg",
+            "level": 1
+        },{
+            "uid": 82,
+            "word": "buonngu",
+            "fullword": "buồn ngủ",
+            "thumb": "84_Buon_ngu.jpg",
+            "level": 1
+        },{
+            "uid": 83,
+            "word": "damcuoi",
+            "fullword": "đám cưới",
+            "thumb": "83_Dam_cuoi.jpg",
+            "level": 1
+        }, {
+            "uid": 84,
+            "word": "nhatnguyet",
+            "fullword": "nhật nguyệt",
+            "thumb": "85_Nhat_nguyet.jpg",
+            "level": 1
+        }, {
+            "uid": 85,
+            "word": "nhosi",
+            "fullword": "nho sĩ",
+            "thumb": "86_nho_si.jpg",
+            "level": 1
+        },{
+            "uid": 86,
+            "word": "thattinh",
+            "fullword": "thất tình",
+            "thumb": "93_That_tinh.jpg",
+            "level": 1
+        },{
+            "uid": 87,
+            "word": "dautranh",
+            "fullword": "đấu tranh",
+            "thumb": "94_Dau_tranh.jpg",
+            "level": 1
+        },{
+            "uid": 88,
+            "word": "quabao",
+            "fullword": "quả báo",
+            "thumb": "88_Qua_bao.jpg",
+            "level": 1
+        }, {
+            "uid": 89,
+            "word": "thuocsau",
+            "fullword": "thuốc sâu",
+            "thumb": "87_thuoc_sau.jpg",
+            "level": 1
+        }, {
+            "uid": 90,
+            "word": "hoanghon",
+            "fullword": "hoàng hôn",
+            "thumb": "89_Hoang_hon.jpg",
+            "level": 1
+        }, ,{
+            "uid": 91,
+            "word": "ykien",
+            "fullword": "ý kiến",
+            "thumb": "90_Y_kien.jpg",
+            "level": 1
+        },{
+            "uid": 92,
+            "word": "haohoa",
+            "fullword": "hào hoa",
+            "thumb": "91_Hao_hoa.jpg",
+            "level": 1
+        },{
+            "uid": 93,
+            "word": "holy",
+            "fullword": "hồ ly",
+            "thumb": "92_Ho_ly.jpg",
+            "level": 1
+        }, {
+            "uid": 94,
+            "word": "dantranh",
+            "fullword": "đàn tranh",
+            "thumb": "95_Dan_tranh.jpg",
             "level": 1
         }
+
     ]
 }

@@ -4,7 +4,7 @@ Ext.define('MyApp.model.Question', {
         fields: [
             {
                 name:'uid',//unique name to phan biet cau hoi
-                type:'string'
+                type:'int'
             },
         	{
             	name:'word',//VIETLIENTU
