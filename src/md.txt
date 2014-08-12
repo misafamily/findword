@@ -1,3 +1,5 @@
 fb app id: 295996397246557
 fb app secret: fadd56e295120ece2fe0bff59debf2ce
 fb plugin: https://github.com/Wizcorp/phonegap-facebook-plugin
+
+http://stackoverflow.com/questions/14504397/facebook-api-how-to-publish-photo-on-the-users-wall
