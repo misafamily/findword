@@ -5,17 +5,17 @@
  * metadata-driven class system features 
  */
 Ext.Loader.addClassPathMappings({
-  "Ext": "../../../../src",
-  "Ext.device.Purchases.Product": "../../../../src/device/purchases/Sencha.js",
-  "Ext.device.filesystem.DirectoryEntry": "../../../../src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.Entry": "../../../../src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.FileEntry": "../../../../src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.FileSystem": "../../../../src/device/filesystem/HTML5.js",
-  "Ext.device.purchases.Purchase": "../../../../src/device/purchases/Sencha.js",
-  "Ext.device.sqlite.Database": "../../../../src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLResultSet": "../../../../src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLResultSetRowList": "../../../../src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLTransaction": "../../../../src/device/sqlite/Sencha.js",
+  "Ext": "../../../../../../src",
+  "Ext.device.Purchases.Product": "../../../../../../src/device/purchases/Sencha.js",
+  "Ext.device.filesystem.DirectoryEntry": "../../../../../../src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.Entry": "../../../../../../src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.FileEntry": "../../../../../../src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.FileSystem": "../../../../../../src/device/filesystem/HTML5.js",
+  "Ext.device.purchases.Purchase": "../../../../../../src/device/purchases/Sencha.js",
+  "Ext.device.sqlite.Database": "../../../../../../src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLResultSet": "../../../../../../src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLResultSetRowList": "../../../../../../src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLTransaction": "../../../../../../src/device/sqlite/Sencha.js",
   "MyApp": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -639,32 +639,26 @@ Ext.ClassManager.addNameAlternateMappings({
     "Ext.viewport.WP"
   ],
   "MyApp.controller.Main": [],
-  "MyApp.model.Atm": [],
-  "MyApp.model.AtmHistory": [],
-  "MyApp.model.Expense": [],
-  "MyApp.model.Insurance": [],
-  "MyApp.model.InsuranceHistory": [],
+  "MyApp.model.Question": [],
   "MyApp.model.SavedVar": [],
-  "MyApp.model.Saving": [],
-  "MyApp.model.SavingHistory": [],
-  "MyApp.model.System": [],
-  "MyApp.override.picker.Date": [],
+  "MyApp.store.InitAppData": [],
+  "MyApp.store.Questions": [],
   "MyApp.util.AppUtil": [
     "AppUtil"
   ],
   "MyApp.util.offline.Connection": [],
-  "MyApp.util.offline.Data": [],
-  "MyApp.util.offline.PagingLocalStorageProxy": [
-    "Ext.data.proxy.PagingLocalStorage"
-  ],
   "MyApp.util.offline.Proxy": [
     "Ext.data.SqliteStorageProxy"
   ],
+  "MyApp.view.AutoHideAlert": [],
+  "MyApp.view.Game": [],
+  "MyApp.view.Home": [],
   "MyApp.view.Main": [],
-  "MyApp.view.comp.MoneyInputer": [],
-  "MyApp.view.comp.ViewBase": [],
-  "MyApp.view.home.Home": [],
-  "MyApp.view.home.HomeChart": []
+  "MyApp.view.pop.Alert": [],
+  "MyApp.view.pop.Confirm": [],
+  "MyApp.view.pop.Congrate": [],
+  "MyApp.view.pop.GameIntro": [],
+  "MyApp.view.pop.Gameover": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1384,38 +1378,40 @@ Ext.ClassManager.addNameAliasMappings({
   "Ext.viewport.Viewport": [],
   "Ext.viewport.WindowsPhone": [],
   "MyApp.controller.Main": [],
-  "MyApp.model.Atm": [],
-  "MyApp.model.AtmHistory": [],
-  "MyApp.model.Expense": [],
-  "MyApp.model.Insurance": [],
-  "MyApp.model.InsuranceHistory": [],
+  "MyApp.model.Question": [],
   "MyApp.model.SavedVar": [],
-  "MyApp.model.Saving": [],
-  "MyApp.model.SavingHistory": [],
-  "MyApp.model.System": [],
-  "MyApp.override.picker.Date": [],
+  "MyApp.store.InitAppData": [],
+  "MyApp.store.Questions": [],
   "MyApp.util.AppUtil": [],
   "MyApp.util.offline.Connection": [],
-  "MyApp.util.offline.Data": [
-    "data"
-  ],
-  "MyApp.util.offline.PagingLocalStorageProxy": [
-    "proxy.localstoragepaging"
-  ],
   "MyApp.util.offline.Proxy": [
     "proxy.sqlitestorage"
+  ],
+  "MyApp.view.AutoHideAlert": [
+    "widget.autohidealert"
+  ],
+  "MyApp.view.Game": [
+    "widget.game"
+  ],
+  "MyApp.view.Home": [
+    "widget.home"
   ],
   "MyApp.view.Main": [
     "widget.main"
   ],
-  "MyApp.view.comp.MoneyInputer": [
-    "widget.comp_moneyinputer"
+  "MyApp.view.pop.Alert": [
+    "widget.pop_alert"
   ],
-  "MyApp.view.comp.ViewBase": [],
-  "MyApp.view.home.Home": [
-    "widget.home"
+  "MyApp.view.pop.Confirm": [
+    "widget.pop_confirm"
   ],
-  "MyApp.view.home.HomeChart": [
-    "widget.home_homechart"
+  "MyApp.view.pop.Congrate": [
+    "widget.pop_congrate"
+  ],
+  "MyApp.view.pop.GameIntro": [
+    "widget.pop_gameintro"
+  ],
+  "MyApp.view.pop.Gameover": [
+    "widget.pop_gameover"
   ]
 });

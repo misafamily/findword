@@ -30,6 +30,12 @@ Ext.define('MyApp.view.Game', {
 					cls: 'button-icon button-back',
 					title: 'back'
 				}, {
+					xtype: 'button',
+					cls: 'button-icon button-help',
+					badgeText: '3',
+					title: 'helpbtn',
+					itemId: 'helpbtnid'
+				},{
 					xtype: 'spacer',
 					flex: 1
 				}]
@@ -87,15 +93,22 @@ Ext.define('MyApp.view.Game', {
 			},
 			flex: 1,
 			items:[{
-				xtype: 'image',
+				xtype: 'container',
 				title: 'gamethumb',
 				//src: 'resources/data/sample.jpg',
 				cls: 'game-pic-image',
-				mode: ''
+				mode: '',
+				style: {
+					'width': '100%',
+					'background-size': '90%',
+					'background-repeat': 'no-repeat',
+					'background-position': 'center',
+				}
 			}]
-		}, {
+		}, /*{
 			xtype: 'container',
 			cls: 'game-buttons',
+			height: 40,
 			layout: {
 				type: 'hbox',
 				pack: 'center',
@@ -114,7 +127,7 @@ Ext.define('MyApp.view.Game', {
 				title: 'helpbtn',
 				itemId: 'helpbtnid'
 			}]
-		}, {
+		},*/ {
 			xtype: 'container',			
 			cls: 'game-word',
 			layout: {
@@ -212,45 +225,59 @@ Ext.define('MyApp.view.Game', {
 
 	initialize: function() {
 		var me = this;
-		this.callParent(arguments);
+		me.callParent(arguments);
 		MyApp.app.on('start_game', me.onStartGame, me);
 
 		me.ALPHABE = 'QERTYUIOPASDFGHKLXCVBNMABC';
 		//get Questions store
-		me.questionStore = Ext.getStore('Questions');
+		//me.questionStore = Ext.getStore('Questions');
 
-		me.allQuestions = Ext.clone(me.questionStore.data.items);
+		me.allQuestions = AppUtil.allQuestions;//Ext.clone(me.questionStore.data.items);
 
-		console.log('me.questionStore', me.questionStore);
+		//console.log('me.questionStore', me.questionStore);
 
 		//reset game to test
-		AppUtil.resetSettings();
+		//AppUtil.resetSettings();
 	},
 
 	onStartGame: function() {
 		var me = this;
-		me.a1 = me.down('container[name="acontainer1"]');
-		me.a2 = me.down('container[name="acontainer2"]');
-		me.q1 = me.down('container[name="qcontainer1"]');
-		me.q2 = me.down('container[name="qcontainer2"]');
+		if (!me.initGame) {
+			me.initGame = true;
 
-		me.MAXQ = 9;
-		me.MAXA = 7;
+			me.a1 = me.down('container[name="acontainer1"]');
+			me.a2 = me.down('container[name="acontainer2"]');
+			me.q1 = me.down('container[name="qcontainer1"]');
+			me.q2 = me.down('container[name="qcontainer2"]');
 
-		
-		//me.image.setWidth(me.image.parent.getWidth());
-		//me.image.setHeight(me.image.parent.getHeight());
+			me.MAXQ = 9;
+			me.MAXA = 7;
 
-		var totalButton = me.MAXQ*2 + me.MAXA*2;
-		me.aButtons = [];
-		for (var i = 0; i < totalButton; i++) {
-			me.aButtons.push(Ext.create('Ext.Button', {text: ''}));
+			
+			//me.image.setWidth(me.image.parent.getWidth());
+			//me.image.setHeight(me.image.parent.getHeight());
+
+			var totalButton = me.MAXQ*2 + me.MAXA*2;
+			me.aButtons = [];
+			for (var i = 0; i < totalButton; i++) {
+				me.aButtons.push(Ext.create('Ext.Button', {text: ''}));
+			}
+
+			me.QButtons = [];
+			me.AButtons = [];
+
+			me.currentButtonIndex = 0;
+			me.playGame();
+		}
+		//check show intro
+		var showhelp = AppUtil.getLocalVar('showhelp');
+
+		if (!showhelp) {
+			//AppUtil.saveLocalVar('showhelp', true);
+			AppUtil.gameintro();
 		}
 
-		me.QButtons = [];
-		me.AButtons = [];
-
-		me.playGame();
+		//AppUtil.gift();
 	},
 
 	getNextQuestion: function() {
@@ -265,9 +292,16 @@ Ext.define('MyApp.view.Game', {
 
 		var q = me.getNextQuestion();
 		if (q) {
+			if (!AppUtil.isFirstLoad) {
+				AppUtil.GAMESTATE = 'new';
+				//console.log('USER ANSWER: ', AppUtil.OPENINGANSWER);
+				AppUtil.saveGameState();
+			}
+			
 			me.renderQuestion(q);
 		} else {
-			AppUtil.alert('Bạn đã hoàn thành trò chơi. Chúng tôi sẽ cập nhật thêm trong phiên bản tiếp theo.<br/>Xin chào và hẹn gặp lại.', 'CHÚC MỪNG');
+			//AppUtil.alert('Bạn đã hoàn thành trò chơi. Chúng tôi sẽ cập nhật thêm trong phiên bản tiếp theo.<br/>Xin chào và hẹn gặp lại.', 'CHÚC MỪNG');
+			AppUtil.gameover();
 		}
 	},
 
@@ -276,21 +310,31 @@ Ext.define('MyApp.view.Game', {
 		var lv = AppUtil.LEVEL;
 		if (!me.levelLabel) me.levelLabel = me.down('label[title="levellabel"]');
 		if (!me.scoreLabel) me.scoreLabel = me.down('label[title="scorelabel"]');
-		if (!me.freetimeButton) me.freetimeButton = me.down('button[title="freetimebtn"]');
+		//if (!me.freetimeButton) me.freetimeButton = me.down('button[title="freetimebtn"]');
 		if (!me.helpButton) me.helpButton = me.down('button[title="helpbtn"]');
 
 		me.levelLabel.setHtml('CÂU ' + lv);
 		me.scoreLabel.setHtml(AppUtil.SCORE);
-		me.freetimeButton.setBadgeText(AppUtil.FREETIME);
+		//me.freetimeButton.setBadgeText(AppUtil.FREETIME);
 		me.helpButton.setBadgeText(AppUtil.OPENTIME);
 	},
 
 	renderQuestion: function(question) { //is Question model
 		var me = this;
 		me.currentQuestion = question;
-		if (!me.image) me.image = me.down('image[title="gamethumb"]');
+		if (!me.image) me.image = me.down('container[title="gamethumb"]');
+		var parentContainer = me.image.parent;
+		//console.log('parentContainer: ', parentContainer);
+		var xh = '199px';
+		if (parentContainer) {
+			xh = parentContainer.element.dom.clientHeight + 'px';
+		}
 		//AppUtil.alert('resources/data/' + question.data.thumb, 'src');
-		me.image.setSrc('resources/data/' +  question.data.thumb);
+		me.image.setStyle( {
+			'background-image' : 'url("resources/data/' +  question.data.thumb + '")',
+			'height': xh
+			
+		});
 		me.generateQuestion(question.data.word.toUpperCase());
 	},
 
@@ -333,7 +377,7 @@ Ext.define('MyApp.view.Game', {
 			return;
 		}
 		//var con = me.q1;
-		console.log(question, ' length: ', count);
+		//console.log(question, ' length: ', count);
 		if (count > me.MAXQ) {
 			var s1 = temp.substring(0, me.MAXQ);
 			var s2 = temp.substring(me.MAXQ, count);
@@ -343,12 +387,21 @@ Ext.define('MyApp.view.Game', {
 			me.genQuestion(me.q1, temp);
 		}
 
-		var a = question.split('');
-		while (a.length < me.MAXA*2) {
-			var tt = me.ALPHABE[Math.round(Math.random()*me.ALPHABE.length-2)] || ''; 
-			if (tt != '') a.push(tt);
+		//check to restore previous game
+
+		var a = '';
+		if (AppUtil.GAMESTATE == 'playing' && AppUtil.isFirstLoad) {
+			//AppUtil.isFirstLoad = false;
+			a = Ext.clone(AppUtil.CLOSESELECTION);
+		} else {
+			a = question.split('');
+			while (a.length < me.MAXA*2) {
+				var tt = me.ALPHABE[Math.round(Math.random()*me.ALPHABE.length-2)] || ''; 
+				if (tt != '') a.push(tt);
+			}
+			a = me.shuffle(a);
 		}
-		a = me.shuffle(a);
+		
 		//console.log(a);
 		me.genSelection(a);
 	},
@@ -386,6 +439,36 @@ Ext.define('MyApp.view.Game', {
 
 			me.AButtons.push(btn);
 		}
+
+		//load game data
+		if (AppUtil.GAMESTATE == 'playing' && AppUtil.isFirstLoad) {
+			AppUtil.isFirstLoad = false;
+			var openChars = AppUtil.OPENINGANSWER;
+			for (var i = 0; i < openChars.length; i++) {
+				//console.log('openChars[i]: ', openChars[i]);
+				var oc = openChars[i].split('-');
+				if (oc.length > 1) {
+					var qBtnId = Ext.util.Format.format('button[itemId="{0}"]', oc[0]) ;
+					var qBtn = me.down(qBtnId);
+					//console.log('qBtnId: ', qBtnId, ' qBtn:', qBtn);
+					if (qBtn) {
+						qBtn.addCls('open');
+						if (oc.length > 2) qBtn.addCls('fix');
+						qBtn.setItemId(qBtn.getItemId() + '-' + oc[1]);
+
+						var aBtnId = Ext.util.Format.format('button[itemId="a_{0}"]', oc[1]) ;
+						var aBtn = me.down(aBtnId);
+						if (aBtn) {
+							aBtn.addCls('hide');
+						}
+
+						qBtn.setText(aBtn.getText());
+					}
+				} 
+			};
+		}
+		AppUtil.CLOSESELECTION = q;
+		AppUtil.saveGameState();
 	},
 
 	shuffle: function(o){ //v1.0
@@ -396,11 +479,14 @@ Ext.define('MyApp.view.Game', {
 	chooseAnswer: function(btn) {
 		var me = this;
 		var title = btn.getItemId();
+		
 		//console.log('itemId: ', title);
 		var answer = '';
 		if (title.indexOf('a') > -1) { //is A button
+			me.removeWrong();
 			if (me.timeout) return;
 			var found = false;
+			AppUtil.OPENINGANSWER = [];
 			for (var i = 0; i < me.QButtons.length; i++) {
 				var b = me.QButtons[i];
 				
@@ -415,7 +501,15 @@ Ext.define('MyApp.view.Game', {
 				} else {
 					answer += b.getText();
 				}
+				if (b.getCls().indexOf('fix') > -1) AppUtil.OPENINGANSWER.push(b.getItemId() + '-fix');
+				else AppUtil.OPENINGANSWER.push(b.getItemId());
 			};
+
+			if (found) {
+				AppUtil.GAMESTATE = 'playing';
+				//console.log('USER ANSWER: ', AppUtil.OPENINGANSWER);
+				AppUtil.saveGameState();
+			}
 			
 			if (answer.length == me.ANSWER.length) {
 				//fill all, check it correct or not
@@ -423,7 +517,7 @@ Ext.define('MyApp.view.Game', {
 				console.log('RIGHT ANSWER: ', me.ANSWER);
 				me.timeout = true;
 				if (answer == me.ANSWER) {
-					AppUtil.autoAlert('Đáp án chính xác rồi');
+					//AppUtil.autoAlert('Đáp án chính xác rồi');
 					me.answerRight();
 				} else {
 					AppUtil.autoAlert('Đoán sai rồi');
@@ -433,17 +527,37 @@ Ext.define('MyApp.view.Game', {
 			}
 		} else if (title.indexOf('q') > -1) { // is Q button
 			var itemId = btn.getItemId().split('-');
+			var oldItemId = btn.getItemId();
+			me.removeWrong();
+			if (btn.getCls().indexOf('fix') > -1) return;
 			if (itemId.length > 1) {
 				btn.removeCls('open');
 				btn.setText('');
 				me.timeout = false;
 				btn.setItemId(itemId[0]);
+
 				for (var i = 0; i < me.AButtons.length; i++) {
 					var b = me.AButtons[i];
 					if (b.getItemId() == 'a_' + itemId[1]) {
 						b.removeCls('hide');
+
+						break;
 					}
 				}
+
+				for (var i = 0; i < AppUtil.OPENINGANSWER.length; i++) {
+					var b = AppUtil.OPENINGANSWER[i];
+					if (b == oldItemId) {
+						AppUtil.OPENINGANSWER[i] = btn.getItemId();
+						break;
+					}
+				}
+				
+				
+				AppUtil.GAMESTATE = 'playing';
+				//console.log('USER ANSWER: ', AppUtil.OPENINGANSWER);
+				AppUtil.saveGameState();
+			
 			}
 		} else if (title == 'freetimebtnid') {
 			if (AppUtil.FREETIME > 0) {
@@ -459,31 +573,38 @@ Ext.define('MyApp.view.Game', {
 		} else if (title == 'helpbtnid') {
 			if (AppUtil.SCORE >= 3) {
 				if (AppUtil.OPENTIME > 0) {
-					var msg = 'Mở 1 chữ trong ô đáp án sẽ bị trừ 5 xu. Bạn đồng ý chứ?<br/>(Được sử dụng 3 lần mỗi câu)';
+					var msg = 'Dùng 10 xu để mở ô kế tiếp.<br/>Bạn đồng ý chứ?<br/>(Được sử dụng 3 lần mỗi câu)';
 					AppUtil.confirm(msg, 
 						'Mở Ô Đáp Án',
 						function() {
-							AppUtil.OPENTIME--;
-							me.open1Char();
+							if (me.checkAnswerFull()) {
+								AppUtil.alert('Bạn đã mở hết ô đáp án.<br/>Hãy xóa 1 ô cần mở.', 'Mở Ô Đáp Án');
+							} else {
+								me.removeWrong();
+								AppUtil.OPENTIME--;
+								me.open1Char();
+							}
+							
 						});
 				} else {
 					AppUtil.alert('Bạn đã sử dụng hết 3 lần cho câu đố này rồi.', 'Mở Ô Đáp Án');
 				}
 				
 			} else {
-				AppUtil.alert('Số xu đã hết. Hãy cố gắng suy nghĩ nào.', 'Mở Ô Đáp Án');
+				AppUtil.alert('Số xu không đủ. Hãy cố gắng suy nghĩ nào.', 'Mở Ô Đáp Án');
 			}
 		}
 	},
 
 	open1Char: function() {
 		var me = this;
-		AppUtil.SCORE -= 5;
+		AppUtil.SCORE -= 10;
 	
 		AppUtil.save();
-
+		
 		var answer = '';
 		var found = false;
+		AppUtil.OPENINGANSWER = [];
 		for (var i = 0; i < me.QButtons.length; i++) {
 			var b = me.QButtons[i];
 			
@@ -494,19 +615,30 @@ Ext.define('MyApp.view.Game', {
 				b.addCls('fix');
 				answer += b.getText();
 
+				var id = '';
 				for (var j = 0; j < me.AButtons.length; j++) {
 					var bb = me.AButtons[j];
 					if (bb.getText() == me.ANSWER[i]) {
 						bb.addCls('hide');
+						id = bb.getItemId();
 						break;
 					}
 				};
-				//b.setItemId(b.getItemId() + '-' + title.split('_')[1]);
+				if (id != '') b.setItemId(b.getItemId() + '-' + id.split('_')[1]);
 				//btn.addCls('hide');
 				//break;
 			} else {
 				answer += b.getText();
 			}
+			if (b.getCls().indexOf('fix') > -1)
+				AppUtil.OPENINGANSWER.push(b.getItemId() + '-fix');
+			else AppUtil.OPENINGANSWER.push(b.getItemId());
+		};
+
+		if (found) {
+			AppUtil.GAMESTATE = 'playing';
+			//console.log('USER ANSWER: ', AppUtil.OPENINGANSWER);
+			AppUtil.saveGameState();
 		};
 		
 		if (answer.length == me.ANSWER.length) {
@@ -526,23 +658,50 @@ Ext.define('MyApp.view.Game', {
 
 		Ext.defer(function(){
 			me.updateGameInfo();
-		}, 300);
+		}, 24);
 		
+	},
+
+	checkAnswerFull: function() {
+		var me = this;
+		var fulled = true;
+		for (var i = 0; i < me.QButtons.length; i++) {
+			var b = me.QButtons[i];
+			
+			if (b.getText() == '') {
+				fulled = false;
+				break;
+			}
+		}
+
+		return fulled;
 	},
 
 	answerRight: function() {
 		var me = this;
 		AppUtil.SCORE += 3;
 		AppUtil.LEVEL += 1;
+		AppUtil.OPENTIME = 3;
 
 		AppUtil.save();
+
+		AppUtil.GAMESTATE = 'end';
+		//console.log('USER ANSWER: ', AppUtil.OPENINGANSWER);
+		AppUtil.saveGameState();
 
 		me.currentQuestion.data.status = 'cleared';
 		me.currentQuestion.save(function() {
 			AppUtil.congrate(me.currentQuestion.data.fullword.toUpperCase(), function() {
 				Ext.defer(function(){
-					me.playGame();
-				}, 300);
+					if (((AppUtil.LEVEL - 1) % 5 ) == 0) {
+						AppUtil.gift(function() {
+							//Ext.defer(function(){
+								me.playGame();
+							//}, 24);
+						});
+					}
+					else me.playGame();
+				}, 24);
 			});
 		});
 
@@ -558,11 +717,31 @@ Ext.define('MyApp.view.Game', {
 
 		Ext.defer(function(){
 			me.playGame();
-		}, 300);
+		}, 24);
 		
 	},
 
 	answerWrong: function() {
 		var me = this;
+		for (var j = 0; j < me.QButtons.length; j++) {
+			var bb = me.QButtons[j];
+			//if (bb.getText() == me.ANSWER[i]) {
+				bb.addCls('wrong');
+			//	id = bb.getItemId();
+			//	break;
+			//}
+		}
+	},
+
+	removeWrong: function() {
+		var me = this;
+		for (var j = 0; j < me.QButtons.length; j++) {
+			var bb = me.QButtons[j];
+			//if (bb.getText() == me.ANSWER[i]) {
+				bb.removeCls('wrong');
+			//	id = bb.getItemId();
+			//	break;
+			//}
+		}
 	}
 });

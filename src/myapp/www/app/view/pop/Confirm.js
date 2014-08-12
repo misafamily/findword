@@ -8,8 +8,8 @@ Ext.define('MyApp.view.pop.Confirm', {
         centered: true,
     	//message: 'Your message here',
         //title: 'Your title here',
-       	showAnimation: { type: 'popIn', duration: 200, easing: 'ease-out' },
-	    hideAnimation: { type: 'popOut', duration: 100, easing: 'ease-out' },
+       	showAnimation: null,//{ type: 'popIn', duration: 200, easing: 'ease-out' },
+	    hideAnimation: null,//{ type: 'popOut', duration: 100, easing: 'ease-out' },
 	    cls: 'pop-alert-container',
 	    hidden: true,
 	    layout: {
@@ -44,7 +44,7 @@ Ext.define('MyApp.view.pop.Confirm', {
                 width: 10
             }, {
                 xtype: 'button',
-                text: 'BỎ QUA',
+                text: 'KHÔNG',
                 cls: 'button-icon button-pop',
                 title: 'closepopbtn'
             }]

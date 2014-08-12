@@ -2,12 +2,15 @@ Ext.define('MyApp.util.AppUtil', {
 	alternateClassName : 'AppUtil',
 	requires : ['MyApp.model.SavedVar','MyApp.view.AutoHideAlert', 
 				'MyApp.view.pop.Alert', 'MyApp.view.pop.Confirm',
-				'MyApp.view.pop.Congrate'],
+				'MyApp.view.pop.Congrate', 'MyApp.view.pop.Gameover','MyApp.view.pop.GameIntro',
+				'MyApp.view.pop.Gift'],
 	singleton : true,
 	dbConnection : null,
 	popupAdded: [],
+	isFirstLoad: true,
 
-	appVersion: '1.15',
+	appVersion: '1.29 (08/08/2014)',
+	allQuestions: [],
 	
 	/*
 		1.0: starting app
@@ -28,11 +31,12 @@ Ext.define('MyApp.util.AppUtil', {
 			me.saveLocalVar('app_version', me.appVersion);
 			var datastore = Ext.create('MyApp.store.InitAppData');
 			var localstore = Ext.create('MyApp.store.Questions');
+			localstore.changeQueryByType('all');
 			datastore.getProxy().setUrl('resources/data/questions.json');
 			datastore.load(function(records) {
 				//console.log('records', records);
 				localstore.load(function(localRecords){
-					console.log('localRecords', localRecords);
+					//console.log('localRecords', localRecords);
 					if (localRecords.length < 1) {
 						localstore.setData(records);
 						localstore.sync({
@@ -44,7 +48,7 @@ Ext.define('MyApp.util.AppUtil', {
 						//check for new item
 						Ext.each(records, function(dataitem, i) {
 							var check = me.checkExist(dataitem, localRecords);	
-							console.log('check: ', check);					
+							//console.log('check: ', check);					
 							if (check) {
 								//if (check.data.word != dataitem.data.word || ) {
 									check.data = dataitem.data;
@@ -68,7 +72,9 @@ Ext.define('MyApp.util.AppUtil', {
 	checkExist: function(model, localModels) {
 		for (var j = 0; j < localModels.length; j++) {
 			var item = localModels[j];
-			if (item.data.uid == model.data.uid) {
+			//console.log('item.data.uid.toString(): ', item.data.uid.toString());
+			//console.log('model.data.uid.toString(): ', model.data.uid.toString());
+			if (item.data.uid.toString() == model.data.uid.toString()) {
 				return item;
 			}
 		}
@@ -102,6 +108,7 @@ Ext.define('MyApp.util.AppUtil', {
 		me.saveLocalVar('level', 1);
 		me.saveLocalVar('freetime', 1);
 		me.saveLocalVar('opentime', 3);
+		me.saveLocalVar('showhelp', false);
 
 		me.APPVERSION = me.getLocalVar('app_version');
 		me.SCORE = me.getLocalVar('score');
@@ -117,6 +124,9 @@ Ext.define('MyApp.util.AppUtil', {
 		if (!me.getLocalVar('app_version')) {
 			me.saveLocalVar('app_version', '0.0');
 		}
+		if (!me.getLocalVar('showhelp')) {
+			me.saveLocalVar('showhelp', false);
+		}
 		if (!me.getLocalVar('score')) {
 			me.saveLocalVar('score', 20);
 		}
@@ -129,12 +139,28 @@ Ext.define('MyApp.util.AppUtil', {
 		if (!me.getLocalVar('opentime')) {
 			me.saveLocalVar('opentime', 3);
 		}
+
+		//game data to store and load
+		if (!me.getLocalVar('openinganswer')) {
+			me.saveLocalVar('openinganswer', []);
+		}
+		if (!me.getLocalVar('closeselection')) {
+			me.saveLocalVar('closeselection', []);
+		}
+		if (!me.getLocalVar('gamestate')) {
+			me.saveLocalVar('gamestate', 'new');//new, end, playing
+		}
+		//me.saveLocalVar('gamestate', 'new');//new, end, playing
+		//me.saveLocalVar('score', 30);
 		
 		me.APPVERSION = me.getLocalVar('app_version');
 		me.SCORE = me.getLocalVar('score');
 		me.LEVEL = me.getLocalVar('level');
 		me.FREETIME = me.getLocalVar('freetime');
 		me.OPENTIME = me.getLocalVar('opentime');
+		me.OPENINGANSWER = me.getLocalVar('openinganswer');
+		me.CLOSESELECTION = me.getLocalVar('closeselection');
+		me.GAMESTATE = me.getLocalVar('gamestate');
 	},
 
 	save: function() {
@@ -145,6 +171,13 @@ Ext.define('MyApp.util.AppUtil', {
 		me.saveLocalVar('opentime', me.OPENTIME);
 
 		MyApp.app.fireEvent('gamedata_changed');
+	},
+
+	saveGameState: function() {
+		var me = this;
+		me.saveLocalVar('openinganswer', me.OPENINGANSWER);
+		me.saveLocalVar('closeselection', me.CLOSESELECTION);
+		me.saveLocalVar('gamestate', me.GAMESTATE);
 	},
 
 	getLocalVar : function(name) {
@@ -208,6 +241,33 @@ Ext.define('MyApp.util.AppUtil', {
 		if (!me._popCongrate) me._popCongrate = Ext.create('MyApp.view.pop.Congrate');
         Ext.Viewport.add(me._popCongrate);
         me._popCongrate.showMe(question, callback);
+	},
+
+	gameover: function() {
+		var me = this;
+		//title = title || '';
+
+		if (!me._popGameover) me._popGameover = Ext.create('MyApp.view.pop.Gameover');
+        Ext.Viewport.add(me._popGameover);
+        me._popGameover.showMe();
+	},
+
+	gameintro: function() {
+		var me = this;
+		//title = title || '';
+
+		if (!me._popGameintro) me._popGameintro = Ext.create('MyApp.view.pop.GameIntro');
+        Ext.Viewport.add(me._popGameintro);
+        me._popGameintro.showMe();
+	},
+
+	gift: function(callback) {
+		var me = this;
+		//title = title || '';
+
+		if (!me._popGift) me._popGift = Ext.create('MyApp.view.pop.Gift');
+        Ext.Viewport.add(me._popGift);
+        me._popGift.showMe(callback);
 	},
 
 	autoAlert: function (msg) {
