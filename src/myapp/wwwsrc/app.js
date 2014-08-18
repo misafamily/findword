@@ -49,14 +49,14 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
        
         
-        this.onDeviceReady();
+        //this.onDeviceReady();
         document.addEventListener("deviceready", this.onDeviceReady, false);
         // Initialize the main view
        
     },
     
     onDeviceReady: function() {
-        if (navigator.splashscreen) navigator.splashscreen.show();
+        //if (navigator.splashscreen) navigator.splashscreen.show();
         Ext.Msg.defaultAllowedConfig.showAnimation = false;
         Ext.Msg.defaultAllowedConfig.hideAnimation = false;
 

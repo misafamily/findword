@@ -3,12 +3,20 @@ body {
 }
 
 .x-mask.x-has-message .x-loading-spinner-outer {
-	height: 80px;
+	height: 10px;
 }
 
 .x-mask .x-mask-inner .x-mask-message {
 	color: #fff;
 	bottom: 15px;
+}
+
+.x-mask.x-has-message .x-mask-inner {
+	top: 210px;
+}
+
+.x-loading-spinner {
+	display: none;
 }
 
 .x-mask .x-mask-inner {
@@ -100,8 +108,8 @@ body {
 .button-back {
 	background-image: url('../images/backbtn.png');
 	background-size: contain;
-	width: 25px;
-	height: 25px;
+	width: 51px;
+	height: 27px;
 }
 
 .button-ignore {
@@ -118,13 +126,25 @@ body {
 .button-help {
 	background-image: url('../images/helpbtn.png');
 	background-size: contain;
-	width: 35px;
-	height: 35px;
+	width: 20px;
+	height: 20px;
 	margin-left: 20px;
 }
 
 .button-help.x-button-pressing {
 	background-image: url('../images/helpbtn_pressed.png');
+}
+
+.button-sharefb {
+	background-image: url('../images/fbbtn.png');
+	background-size: contain;
+	width: 20px;
+	height: 20px;
+	margin-right: 6px;
+}
+
+.button-sharefb.x-button-pressing {
+	background-image: url('../images/fbbtn_pressed.png');
 }
 
 .button-question {
@@ -233,9 +253,11 @@ body {
 }
 
 .x-hasbadge .x-badge {
-	color: #c14819 !important;
-	border: 1px solid #c14819;
+	color: #339196 !important;
+	border: 0px solid #c14819;
 	background-color: #FFFFFF;
+	top: -10px;
+	right: -13px;
 }
 
 /*AUTO HIDE ALERT*/
@@ -266,7 +288,7 @@ body {
 .pop-alert-container .title {
 	padding: 10px;
 	border-bottom: 1px solid;
-	width: 70%;
+	width: 80%;
 	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 15px;
@@ -348,8 +370,8 @@ body {
 }
 
 .game-topbar {
-	height: 68px;
-	padding-top: 18px;
+	height: 62px;
+	padding-top: 20px;
 	background-image: url('../images/barbg.png');
 	width: 100%;
 	background-size: contain;
@@ -361,6 +383,18 @@ body {
 
 .game-level {
 	font-family: 'ROBOTO-BOLD';
+	/* background-image: url('../images/caubg.png'); */
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	/* width: 187px; */
+	height: 44px;
+	/* top: -18px; */
+}
+
+.game-level .x-innerhtml {
+	margin-top: 7px;
+	/* color: #1c8e94; */
+	font-size: 24px;
 }
 
 .game-pic {

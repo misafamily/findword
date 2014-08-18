@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html manifest="" lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>MyApp</title>
+    <style type="text/css">
+         /**
+         * Example of an initial loading indicator.
+         * It is recommended to keep this as minimal as possible to provide instant feedback
+         * while other resources are still being loaded for the first time
+         */
+        html, body {
+            height: 100%;
+            /*background-color: #f9e59e;*/
+            background-image: url('resources/images/Loading.jpg');
+            background-size: 100%;
+        }
+
+        body {
+            overflow:hidden;
+        }
+
+        /*preload images*/
+        body:after{
+            display:none;
+            content: url('resources/images/bg_pu.png') 
+                     url('resources/images/Chuc_mung_BG.jpg')
+                     url('resources/images/gift_bg.jpg') 
+                     url('resources/images/score_bigbg.png')
+                     url('resources/images/Chuc_mung_1.png')
+                     url('resources/images/Chuc_mung_2.png')
+                     url('resources/images/gift_bg_small.png')
+                     url('resources/images/home_btn1.png')
+                     url('resources/images/gift_open.png')
+                     url('resources/images/gift.png')
+                     url('resources/images/fbbtn_pressed.png')
+                     url('resources/images/fbbtn.png')
+                     url('resources/images/helpbtn_pressed.png')
+                     url('resources/images/helpbtn.png')
+                     url('resources/images/home_btn_info2.png')
+                     url('resources/images/home_btn_info1.png')
+                     url('resources/images/home_btn_play2.png')
+                     url('resources/images/home_btn_play1.png')
+                     url('resources/images/btn_PU_active.png')
+                     url('resources/images/btn_PU.png');
+        }
+
+        /*
+        #appLoadingIndicator > * {
+            width: 100%;
+        }*/
+
+    </style>
+    <!-- The line below must be kept intact for Sencha Command to build your application -->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="SocialSharing.js"></script>
+    <script id="microloader" type="text/javascript" src="./libs/microloader/development.js"></script>
+</head>
+<body>
+    <div id="appLoadingIndicator">
+        <!--img src="resources/images/Loading.jpg" /-->
+        <!--div></div>
+        <div></div>
+        <div></div-->
+    </div>
+</body>
+</html>

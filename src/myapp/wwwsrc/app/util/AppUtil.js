@@ -9,7 +9,12 @@ Ext.define('MyApp.util.AppUtil', {
 	popupAdded: [],
 	isFirstLoad: true,
 
-	appVersion: '1.29 (08/08/2014)',
+	appVersion: '1.0 (17/08/2014)',
+	/*
+		1.0 (17/08/2014): v1
+
+
+	*/
 	allQuestions: [],
 	
 	/*
@@ -21,7 +26,7 @@ Ext.define('MyApp.util.AppUtil', {
 		me.getDbConnection();
 		me.initLocalStorage();
 		//me.initAppData();
-		
+		me.fbLogin = null;
 	},
 
 	initAppData: function(callback) {
@@ -109,12 +114,18 @@ Ext.define('MyApp.util.AppUtil', {
 		me.saveLocalVar('freetime', 1);
 		me.saveLocalVar('opentime', 3);
 		me.saveLocalVar('showhelp', false);
+		me.saveLocalVar('openinganswer', []);
+		me.saveLocalVar('closeselection', []);
+		me.saveLocalVar('gamestate', 'new');//new, end, playing
 
 		me.APPVERSION = me.getLocalVar('app_version');
 		me.SCORE = me.getLocalVar('score');
 		me.LEVEL = me.getLocalVar('level');
 		me.FREETIME = me.getLocalVar('freetime');
 		me.OPENTIME = me.getLocalVar('opentime');
+		me.OPENINGANSWER = me.getLocalVar('openinganswer');
+		me.CLOSESELECTION = me.getLocalVar('closeselection');
+		me.GAMESTATE = me.getLocalVar('gamestate');
 
 		me.save();
 	},
@@ -297,12 +308,127 @@ Ext.define('MyApp.util.AppUtil', {
     },
 
     showLoading: function (msg) {
-    	msg = msg || 'Tải dữ liệu..';
+    	msg = msg || 'Tải dữ liệu ..';
         Ext.Viewport.mask({ xtype: 'loadmask', message: msg });
         Ext.Viewport.setMasked(true);
     },
 
     hideLoading: function () {
         Ext.Viewport.unmask();
-    }
+    },
+
+    shareFBToAsk: function(msg, imageurl) {
+
+    	//console.log('shareFBToAsk ', msg, imageurl);
+    	//AppUtil.alert('Chia sẻ Facebook thành công.', 'Cùng Chơi Đoán Chữ');
+    	var me = this;
+    	//me.showLoading('Chia sẻ Facebook ..');
+    	 /*window.plugins.socialsharing.shareViaFacebook(msg, 
+		    								imageurl ,
+		    								null ,
+		    								function(rs) {
+		    									alert(rs);
+		    									AppUtil.alert('Chia sẻ Facebook thành công.', 'Cùng Chơi Đoán Chữ');
+		    								}, 
+		    								function(errormsg){
+		    									//alert(errormsg)
+		    									AppUtil.alert('Không tìm thấy app Facebook trên thiết bị. Hãy cài đặt để chia sẻ với bạn bè và người thân.', 'Cùng Chơi Đoán Chữ');
+		    								}
+		    );*/
+    	if (navigator.screenshot) {
+    		navigator.screenshot.save(function(error,res){
+    			//me.hideLoading();
+			  if(error){
+			    AppUtil.alert('Không thể capture screenshot', 'Lỗi');
+			  }else{
+			    //AppUtil.alert('share ok: ' + res.filePath); //should be path/to/myScreenshot.jpg
+			    me.currentImagePath = 'file:///' + res.filePath;
+			    //login to fb
+			    //if (!me.fbLogin)
+			    window.plugins.socialsharing.shareViaFacebook(msg, 
+			    								'file:///' + res.filePath , 
+			    								null , 
+			    								function(rs) {
+		    										//alert(rs);
+			    									//AppUtil.alert('Chia sẻ Facebook thành công.', 'Cùng Chơi Đoán Chữ');
+			    								}, 
+			    								function(errormsg){
+			    									//alert(errormsg)
+			    									AppUtil.alert('Không tìm thấy app Facebook trên thiết bị. Hãy cài đặt để chia sẻ với bạn bè và người thân.', 'Cùng Chơi Đoán Chữ');
+			    								}
+			    );
+			    //else
+			  }
+			},'jpg',90,'cungchoidoanchu');
+    	}
+    	
+    },
+
+    loginFB: function() {
+    	var me = this;
+    	/*if (!window.cordova) {
+            var appId = prompt("Enter FB Application ID", "");
+            facebookConnectPlugin.browserInit(appId);
+        }*/
+        facebookConnectPlugin.login( ["email"], 
+            function (response) { 
+            	//alert(JSON.stringify(response)) 
+            	me.fbToken = response.authResponse.accessToken;
+            	//me.fbLogin = response;//Ext.decode(JSON.stringify(response)); //{authResponse: {userID, accessToker, sess}}
+            	me.showDialog();
+            },
+            function (response) { 
+            	//alert(JSON.stringify(response)) 
+            	AppUtil.alert('Kết nối mạng thất bại.', 'Facebook');
+            });
+    },
+
+    getStatus: function () { 
+    	var me = this;
+        facebookConnectPlugin.getLoginStatus(
+	        function (status) {
+	            //alert("current status: " + JSON.stringify(status));
+	            if (status.authResponse) {
+	            	if (status.authResponse.accessToken) me.fbToken = status.authResponse.accessToken;
+	            }
+	            
+	            if (status.status == 'connected' && me.fbToken) {
+	            	me.showDialog();
+	            } else {
+	            	me.loginFB();
+	            }
+
+	            
+	        }
+	    );
+    },
+
+    showDialog: function () { 
+    	var me = this;
+    	//AppUtil.alert('showDialog', 'Facebook');
+        facebookConnectPlugin.showDialog( { method: "feed"/*, picture: me.currentImagePath*/ }, 
+            function (response) { 
+            	//alert(JSON.stringify(response)) 
+            	AppUtil.alert('Đăng thành công.', 'Facebook');
+            },
+            function (response) { 
+            	//alert(JSON.stringify(response)) 
+            	//AppUtil.alert('Kết nối mạng thất bại.', 'Facebook');
+            	//AppUtil.alert('Đăng nhập thất bại.', 'Facebook');
+            });
+		/*var params = {
+		        message: 'Cùng Chơi Đoán Chữ - Mình bị bí câu này, mọi người giúp mình nào ^^',
+		        access_token: me.fbToken, // response.authResponse.accessToken
+		        url: me.currentImagePath
+	    	};
+	    alert(JSON.stringify(params));
+		facebookConnectPlugin.api( '/photos', 'post', params, function (response) {
+		        if (!response || response.error) {
+		            alert('Error!' + response.error.message);
+		        } else {
+		            alert('Photo Posted');
+	        	}
+
+	    	});*/
+    }   
 }); 

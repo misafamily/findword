@@ -9,7 +9,13 @@ Ext.define('MyApp.view.Game', {
 			pack: 'center',
 			align: 'center'
 		},
-		items: [{
+		items: [/*{
+				xtype: 'container',
+				style: {
+					'background-color': '#dcd4bf',
+					'height': '20px'
+				}
+			}, */{
 			xtype: 'container',
 			cls: 'game-topbar',
 			layout: {
@@ -35,7 +41,7 @@ Ext.define('MyApp.view.Game', {
 					badgeText: '3',
 					title: 'helpbtn',
 					itemId: 'helpbtnid'
-				},{
+				}, {
 					xtype: 'spacer',
 					flex: 1
 				}]
@@ -59,6 +65,11 @@ Ext.define('MyApp.view.Game', {
 				items:[{
 					xtype: 'spacer',
 					flex: 1
+				}, {
+					xtype: 'button',
+					cls: 'button-icon button-sharefb',
+					title: 'sharefbbtn',
+					itemId: 'sharefbbtnid'
 				}, {
 					xtype: 'container',
 					layout: {
@@ -336,6 +347,8 @@ Ext.define('MyApp.view.Game', {
 			
 		});
 		me.generateQuestion(question.data.word.toUpperCase());
+
+
 	},
 
 	clear: function() {
@@ -482,7 +495,7 @@ Ext.define('MyApp.view.Game', {
 		
 		//console.log('itemId: ', title);
 		var answer = '';
-		if (title.indexOf('a') > -1) { //is A button
+		if (title.indexOf('a_') > -1) { //is A button
 			me.removeWrong();
 			if (me.timeout) return;
 			var found = false;
@@ -525,7 +538,7 @@ Ext.define('MyApp.view.Game', {
 				}
 
 			}
-		} else if (title.indexOf('q') > -1) { // is Q button
+		} else if (title.indexOf('q_') > -1) { // is Q button
 			var itemId = btn.getItemId().split('-');
 			var oldItemId = btn.getItemId();
 			me.removeWrong();
@@ -593,6 +606,13 @@ Ext.define('MyApp.view.Game', {
 			} else {
 				AppUtil.alert('Số xu không đủ. Hãy cố gắng suy nghĩ nào.', 'Mở Ô Đáp Án');
 			}
+		} else if (title == 'sharefbbtnid') {
+			//console.log('AppUtil.CLOSESELECTION: ', AppUtil.CLOSESELECTION);
+			var msg = 'Trò chơi <Cùng Chơi Đoán Chữ>. Mọi người giúp mình nào, câu này mình suy nghĩ không ra. Đáp án gồm ' + 
+						me.currentQuestion.data.word.length + ' chữ. Các từ gợi ý như sau: ' +
+						AppUtil.CLOSESELECTION.join(' ') + '. Xin cảm ơn ^^'
+
+			AppUtil.shareFBToAsk(msg, 'www/resources/data/' + me.currentQuestion.data.thumb);
 		}
 	},
 
