@@ -125,10 +125,12 @@ body {
 
 .button-help {
 	background-image: url('../images/helpbtn.png');
-	background-size: contain;
-	width: 20px;
-	height: 20px;
-	margin-left: 20px;
+	background-size: 50%;
+	width: 30px;
+	height: 30px;
+	margin-left: 15px;
+	/* border: 1px solid; */
+	background-position: center;
 }
 
 .button-help.x-button-pressing {
@@ -137,10 +139,12 @@ body {
 
 .button-sharefb {
 	background-image: url('../images/fbbtn.png');
-	background-size: contain;
-	width: 20px;
-	height: 20px;
-	margin-right: 6px;
+	background-size: 37%;
+	width: 30px;
+	height: 30px;
+	margin-right: 5px;
+	background-position: center;
+	/* border: 1px solid; */
 }
 
 .button-sharefb.x-button-pressing {

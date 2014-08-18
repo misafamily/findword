@@ -25,7 +25,7 @@ Ext.define('MyApp.view.Game', {
 			},
 			items:[{
 				xtype: 'container',
-				width: 110,
+				width: 120,
 				layout: {
 					type: 'hbox',
 					pack: 'center',
@@ -56,7 +56,7 @@ Ext.define('MyApp.view.Game', {
 				}
 			}, {
 				xtype: 'container',
-				width: 110,
+				width: 120,
 				layout: {
 					type: 'hbox',
 					pack: 'center',
@@ -246,6 +246,7 @@ Ext.define('MyApp.view.Game', {
 		me.allQuestions = AppUtil.allQuestions;//Ext.clone(me.questionStore.data.items);
 
 		//console.log('me.questionStore', me.questionStore);
+		me.IGNOREPOINT = 10;
 
 		//reset game to test
 		//AppUtil.resetSettings();
@@ -324,7 +325,8 @@ Ext.define('MyApp.view.Game', {
 		//if (!me.freetimeButton) me.freetimeButton = me.down('button[title="freetimebtn"]');
 		if (!me.helpButton) me.helpButton = me.down('button[title="helpbtn"]');
 
-		me.levelLabel.setHtml('CÂU ' + lv);
+		//me.levelLabel.setHtml('CÂU ' + lv);
+		me.levelLabel.setHtml('#' + lv);
 		me.scoreLabel.setHtml(AppUtil.SCORE);
 		//me.freetimeButton.setBadgeText(AppUtil.FREETIME);
 		me.helpButton.setBadgeText(AppUtil.OPENTIME);
@@ -584,7 +586,7 @@ Ext.define('MyApp.view.Game', {
 				AppUtil.alert('Bạn đã sử dụng hết số lần Bỏ Qua Câu Đố.', 'Bỏ Qua Câu Đố');
 			}
 		} else if (title == 'helpbtnid') {
-			if (AppUtil.SCORE >= 3) {
+			if (AppUtil.SCORE >= me.IGNOREPOINT) {
 				if (AppUtil.OPENTIME > 0) {
 					var msg = 'Dùng 10 xu để mở ô kế tiếp.<br/>Bạn đồng ý chứ?<br/>(Được sử dụng 3 lần mỗi câu)';
 					AppUtil.confirm(msg, 
@@ -604,7 +606,7 @@ Ext.define('MyApp.view.Game', {
 				}
 				
 			} else {
-				AppUtil.alert('Số xu không đủ. Hãy cố gắng suy nghĩ nào.', 'Mở Ô Đáp Án');
+				AppUtil.alert('Dùng 10 xu để mở ô kế tiếp.<br/>Số xu Bạn có không đủ. Hãy cố gắng suy nghĩ nào.', 'Mở Ô Đáp Án');
 			}
 		} else if (title == 'sharefbbtnid') {
 			//console.log('AppUtil.CLOSESELECTION: ', AppUtil.CLOSESELECTION);
@@ -618,7 +620,7 @@ Ext.define('MyApp.view.Game', {
 
 	open1Char: function() {
 		var me = this;
-		AppUtil.SCORE -= 10;
+		AppUtil.SCORE -= me.IGNOREPOINT;
 	
 		AppUtil.save();
 		

@@ -658,7 +658,8 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.pop.Confirm": [],
   "MyApp.view.pop.Congrate": [],
   "MyApp.view.pop.GameIntro": [],
-  "MyApp.view.pop.Gameover": []
+  "MyApp.view.pop.Gameover": [],
+  "MyApp.view.pop.Gift": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1413,5 +1414,8 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.pop.Gameover": [
     "widget.pop_gameover"
+  ],
+  "MyApp.view.pop.Gift": [
+    "widget.pop_gift"
   ]
 });
