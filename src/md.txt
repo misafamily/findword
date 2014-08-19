@@ -8,3 +8,9 @@ workspace.temp.dir=${app.dir}/../temp/
 workspace.build.dir=${app.dir}/../platforms/ios/www/
 
 app.build.dir=${workspace.build.dir}
+
+Lisence key:
+
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhrcpdokNgVbf0/8Fw4uuPWsMmJrE4J8ygToUnWc9gORVDmmRmtVBWf5Fg5jMR3eUDn8TG+dVpdboP0devmpyO4Ky//4LOVesj4KdzWZ6SAxTtLwOnRFFa/4/LY58XedOI0i011o5DBtwwDslnjKlTsMbfISmdK0sUy2afCBmIBgJ2rJsJcXsuWlezhpY1F5BMHIzxcwkUNIDsvxMga9AaSpZK9zMmsT+EKWhcmmVnqJuNxrrr/uLZa2yHUzmIoNHd+zxe9lm6Lq+MD6eysN2ek3ejdO4w2Tx6h7oeSgGwVp5EOIjPZdEwWmjFoDxveDtlL90b0ygD/wHL34M+IR3xQIDAQAB
+
+http://stackoverflow.com/questions/12214467/how-to-obtain-signing-certificate-fingerprint-sha1-for-oauth-2-0-on-android
