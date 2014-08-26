@@ -16,3 +16,8 @@ MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhrcpdokNgVbf0/8Fw4uuPWsMmJrE4J8ygToU
 http://stackoverflow.com/questions/12214467/how-to-obtain-signing-certificate-fingerprint-sha1-for-oauth-2-0-on-android
 
 https://github.com/tssajo/Minify
+=============
+Startup info:
+
+Dev ID: 108175042
+App ID: 208043101
