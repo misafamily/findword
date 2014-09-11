@@ -34,13 +34,13 @@ Ext.define('MyApp.view.pop.GameIntro', {
 	    	cls: 'doandung',
             style: {
                 //'text-align': 'center',
-                'margin-bottom': '20px',
-                'font-size': '18px',
+                'margin-bottom': '10px',
+                'font-size': '14px',
                 'margin-left': '15px',
                 'margin-right': '15px',
                 'line-height': '25px'
             },
-	    	html: 'Chương trình sẽ đưa ra câu đố bằng hình ảnh, và nhiệm vụ của Bạn là giải câu đố đó bằng chữ.<br/>Bạn sẽ được tặng 20 xu làm vốn. Qua mỗi câu, Bạn sẽ được thưởng thêm 3 xu. Nếu Bạn gặp câu khó, có thể dùng quyền Mở Ô Đáp Án, mỗi lần mất 10 xu, được sử dụng tối đa 3 lần cho mỗi câu đố.<br/>Chúc Bạn chơi vui vẻ !'
+	    	html: 'Chương trình sẽ đưa ra câu đố bằng hình ảnh và Bạn dùng chữ để giải câu đố đó.<br/>Bạn sẽ được tặng 20 xu làm vốn. Qua mỗi câu, Bạn sẽ được thưởng thêm 3 xu. Nếu Bạn gặp câu khó, có thể dùng quyền Mở Ô Đáp Án (?), mỗi lần mất 10 xu, được sử dụng tối đa 3 lần cho mỗi câu đố hoặc Bạn có thể nhờ người quen trên Facebook giúp đỡ (f). Qua mỗi 5 câu, Bạn sẽ nhận được Hộp Quà May Mắn chứa rất nhiều xu.<br/>Chúc Bạn chơi vui vẻ !'
 	    }, {
             xtype: 'container',
             layout: {
@@ -54,6 +54,9 @@ Ext.define('MyApp.view.pop.GameIntro', {
                 cls: 'button-icon button-pop intro',
                 title: 'closepopbtn'
             }, {
+                xtype: 'spacer',
+                width: 10
+            },{
                 xtype: 'button',
                 text: 'KHÔNG HIỆN NỮA',
                 cls: 'button-icon button-pop intro',
@@ -109,7 +112,7 @@ Ext.define('MyApp.view.pop.GameIntro', {
     	me.callParent(arguments);
     },
 
-    showMe: function(question, callback) {
+    showMe: function(callback) {
     	var me = this;  
         me.callback = callback;	
         me.showing = true;
@@ -120,8 +123,13 @@ Ext.define('MyApp.view.pop.GameIntro', {
 
     hideMe: function(dontshowagain) {
         //MyApp.app.fireEvent('go_home');
+        var me = this;
         if (dontshowagain) {
             AppUtil.saveLocalVar('showhelp', true);
+        }
+        if (typeof me.callback === 'function') {
+            me.callback();
+
         }
         Ext.Viewport.remove(this, false);
     }

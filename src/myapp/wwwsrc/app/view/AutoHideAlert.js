@@ -35,7 +35,7 @@ Ext.define('MyApp.view.AutoHideAlert', {
     initialize: function() {
     	var me = this;
     	me.callParent(arguments);
-    	me.setTop(window.innerHeight - 10 - 170 - 40);// - botton tab - alertHeight - 10 (margin)
+    	me.setTop(window.innerHeight - 28 - 170 - 40);// - botton tab - alertHeight - 10 (margin)
     },
 
     updateMessage: function() {

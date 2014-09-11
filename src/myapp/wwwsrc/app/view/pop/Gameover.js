@@ -34,7 +34,10 @@ Ext.define('MyApp.view.pop.Gameover', {
 	    	cls: 'doandung',
             style: {
                 'text-align': 'center',
-                'margin-bottom': '50px'
+                'margin-bottom': '50px',
+                'font-size': '18px',
+                'margin-left': '10px',
+                'margin-right': '10px'
             },
 	    	html: 'Bạn đã hoàn thành trò chơi. Chúng tôi sẽ sớm cập nhật phiên bản tiếp theo.<br/><br/>Xin chào và hẹn gặp lại.<br/>(C) Joker Team.'
 	    }, {

@@ -32,6 +32,9 @@ Ext.define('MyApp.view.pop.Congrate', {
         }, {
 	    	xtype: 'label',
 	    	cls: 'doandung',
+            style: {
+                'font-size': '19px'
+            },
 	    	html: 'Bạn đoán chính xác'
 	    }, {
             xtype: 'label',
@@ -85,7 +88,8 @@ Ext.define('MyApp.view.pop.Congrate', {
             title: 'tongxu',
             html: '',
             style: {
-                'margin-bottom': '10px'
+                'margin-bottom': '5px',
+                'font-size' : '19px'
             }
         }, {
             xtype: 'label',
@@ -93,7 +97,8 @@ Ext.define('MyApp.view.pop.Congrate', {
             
             html: 'Thưởng Bạn 3 xu',
             style: {
-                'margin-bottom': '15px'
+                'margin-bottom': '20px',
+                'font-size' : '19px'
             }
         }, {
             xtype: 'container',
@@ -102,13 +107,29 @@ Ext.define('MyApp.view.pop.Congrate', {
                 pack: 'center',
                 align: 'center'
             },
+           
             items:[{
                 xtype: 'button',
                 text: 'TIẾP TỤC',
                 cls: 'button-icon button-pop continue',
                 title: 'closepopbtn'
+            }, {
+                xtype: 'button',
+                text: 'KHOE Fb',
+                cls: 'button-icon button-pop continue',
+                title: 'sharefbbtn',
+                style: {
+                    'margin-left': '10px'
+                },
+                badgeText: 'Quà tặng 10xu',
+                hidden: true
             }]
-        }],
+        }/*, {
+            xtype: 'container',
+            height: 40,
+            //width: '100%',
+            html: '<iframe src="banner.html" frameBorder="0"></iframe>'
+        }*/],
 
         control: {
             'button[title="closepopbtn"]' : {
@@ -120,6 +141,29 @@ Ext.define('MyApp.view.pop.Congrate', {
 
                     if (!me.nextbutton) me.nextbutton = me.down('button[title="closepopbtn"]');
                     me.nextbutton.disable();
+
+                    if (typeof me.callback === 'function') {
+                        me.callback();
+
+                    }
+
+                    Ext.defer(function() {
+                        me.hideMe();
+                    }, 300);
+                    
+                   
+                }
+            },
+
+            'button[title="sharefbbtn"]' : {
+                 tap: function() {
+                    var me = this;
+                    //console.log('hide me');
+                    if (!me.showing) return;
+                    me.showing = false;
+
+                    if (!me.sharefbbutton) me.sharefbbutton = me.down('button[title="sharefbbtn"]');
+                    me.sharefbbutton.disable();
 
                     if (typeof me.callback === 'function') {
                         me.callback();
@@ -265,6 +309,16 @@ Ext.define('MyApp.view.pop.Congrate', {
         me.showing = true;
         if (!me.nextbutton) me.nextbutton = me.down('button[title="closepopbtn"]');
         me.nextbutton.enable();
+
+        if (!me.sharefbbutton) me.sharefbbutton = me.down('button[title="sharefbbtn"]');
+        me.sharefbbutton.enable();
+        me.sharefbbutton.hide();
+
+        var today = new Date();
+        var todaystr = today.getFullYear().toString() + (today.getMonth()+1).toString() + today.getDate().toString();
+        if (AppUtil.getLocalVar('sharefbbyday_' + todaystr) == null) {
+            //me.sharefbbutton.show();
+        }
 
         me.generateQuestion(question);
         if (!me.cauxxxLabel) me.cauxxxLabel = me.down('label[cls="cauxxx"]');

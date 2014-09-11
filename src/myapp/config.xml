@@ -14,4 +14,10 @@
     <feature name="SplashScreen">
 	    <param name="android-package" value="org.apache.cordova.SplashScreen" />
 	</feature>
+	<feature name="AdController">
+		<param name="android-package" value="com.leadbolt.phonegap.android.LBPhonegapPlugin" />
+	</feature>
+	<feature name="AppTracker">
+		<param name="android-package" value="com.appfireworks.android.phonegap.AppTrackerPlugin" />
+	</feature>
 </widget>

@@ -23,7 +23,7 @@ Ext.application({
         'Main'
     ],
 
-    models:['Question'],
+    models:['Question', 'SavedVar'],
     
     stores:['InitAppData', 'Questions'],
 
@@ -49,7 +49,7 @@ Ext.application({
         // Destroy the #appLoadingIndicator element
        
         
-        //this.onDeviceReady();
+        this.onDeviceReady();
         document.addEventListener("deviceready", this.onDeviceReady, false);
         // Initialize the main view
        
@@ -57,29 +57,51 @@ Ext.application({
     
     onDeviceReady: function() {
         //if (navigator.splashscreen) navigator.splashscreen.show();
+        //loadLeadbolt();
+
         Ext.Msg.defaultAllowedConfig.showAnimation = false;
         Ext.Msg.defaultAllowedConfig.hideAnimation = false;
 
-        console.log('init data..');
+        console.log('init..');
 
         AppUtil.showLoading();
-        AppUtil.initAppData(function(){
-            console.log('init done');
-            var store = Ext.getStore('Questions');
-            store.changeQueryByType('default');
-            store.load(function(records){
-                console.log('load done');
-                AppUtil.allQuestions = Ext.clone(store.data.items);
-                //Ext.fly('appLoadingIndicator').destroy();   
-                Ext.Viewport.add(Ext.create('MyApp.view.Main'));   
-                AppUtil.hideLoading(); 
+        AppUtil.initLocalStorage(function() {
+            console.log('initLocalStorage done');
+            AppUtil.initAppData(function(){
+                console.log('initAppData done');
+                var store = Ext.getStore('Questions');
+                store.changeQueryByType('default');
+                store.load(function(records){
+                    console.log('load done');
+                    AppUtil.allQuestions = Ext.clone(store.data.items);
+                    //Ext.fly('appLoadingIndicator').destroy();   
+                    Ext.Viewport.add(Ext.create('MyApp.view.Main'));   
+                    AppUtil.hideLoading(); 
 
-                Ext.defer(function(){
-                    // Remove the splash screen
-                     if (navigator.splashscreen) navigator.splashscreen.hide();      
-                },2000);
-            });       
+                    Ext.defer(function(){
+                        // Remove the splash screen
+                         if (navigator.splashscreen) navigator.splashscreen.hide();      
+                    },2000);
+                });       
+            });
         });
+        
+        /*
+
+        <script type="text/javascript" src="http://ad.leadboltads.net/show_app_ad.js?section_id=291948098"></script>
+
+        var loadLeadbolt = function()
+        {
+            // Initialize ad serving + AppFireworks
+            AdController.loadAd("787294296");
+            AppTracker.startSession("ZcRFVraioqqdk0Q3exlUDpDb5Oq3zbPr"); // analytics only
+            loadDisplayAd();
+        }
+
+        var loadDisplayAd = function() {
+            // Use this function elsewhere in your App to display a Leadbolt interstitial Ad
+            AdController.loadAd("968718801");
+        }*/
 
 
 
@@ -106,6 +128,7 @@ Ext.application({
          
          
          //return;banner height: 48px
+         /*
          if( window.plugins && window.plugins.AdMob ) {
             var admob_ios_key = 'ca-app-pub-2676331971568981/2132554150';
             var admob_android_key = 'ca-app-pub-2676331971568981/2132554150';
@@ -134,6 +157,6 @@ Ext.application({
             );
         } else {
           //alert('AdMob plugin not available/ready.');
-        }
+        }*/
     }
 });

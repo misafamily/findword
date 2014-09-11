@@ -34,7 +34,7 @@ Ext.define('MyApp.controller.Main', {
 			'home button[title="info"]': {
 				tap: function() {
 					var me = this;
-					AppUtil.alert(Ext.util.Format.format('CÙNG CHƠI ĐOÁN CHỮ<br/>Phiên bản {0}<br/>Email: jokerteamorg@gmail.com<br/>(C)Joker Team.', AppUtil.appVersion), 'THÔNG TIN');
+					AppUtil.alert(Ext.util.Format.format('CÙNG CHƠI ĐOÁN CHỮ<br/>Phiên bản {0}<br/>Email: jokerteamorg@gmail.com<br/>(C) Joker Team.', AppUtil.appVersion), 'THÔNG TIN');
 				}
 			},
 

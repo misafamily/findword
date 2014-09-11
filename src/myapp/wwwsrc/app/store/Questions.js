@@ -8,7 +8,7 @@ Ext.define('MyApp.store.Questions', {
     		type:'sqlitestorage',
     		dbConfig: {
 	    		tablename:'question',    			
-    			dbQuery:'SELECT * from question WHERE status="no" ORDER BY uid ASC'
+    			dbQuery:'SELECT * from question ORDER BY uid ASC'
     		},
     		reader: {
                type: 'array'
@@ -18,7 +18,7 @@ Ext.define('MyApp.store.Questions', {
 
     changeQueryByType: function(type) {
         var me = this;
-        var query = 'SELECT * from question WHERE status="no" ORDER BY id ASC';
+        var query = 'SELECT * from question ORDER BY uid ASC';
         switch (type) {
             case 'all':
                 query = 'SELECT * from question';

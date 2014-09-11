@@ -14,6 +14,8 @@ $fontBoldName: 'ROBOTO-BOLD';
 //@include font-face('ROBOTO-BLACK', inline-font-files('roboto/Roboto-Black.ttf', opentype));
 //@include font-face('ROBOTO-MEDIUM', inline-font-files('roboto/Roboto-Medium.ttf', opentype));
 @include font-face('ROBOTO-LIGHT', inline-font-files('roboto/Roboto-Light.ttf', opentype));
+@include font-face('AVOO-LIGHT', inline-font-files('roboto/Avo-Light.ttf', opentype));
+@include font-face('AVOO-BOLD', inline-font-files('roboto/Avo-Bold.ttf', opentype));
 //@include font-face('ROBOTO-MD', inline-font-files('other/ITCAVANTGARDESTD-MD.OTF', opentype));
 //@include font-face('ROBOTO-BK', inline-font-files('other/ITCAVANTGARDESTD-BK.OTF', opentype));
 .b-textfield-moneyinput  {

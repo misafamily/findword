@@ -1,18 +1,18 @@
 Ext.define('MyApp.util.AppUtil', {
 	alternateClassName : 'AppUtil',
-	requires : ['MyApp.model.SavedVar','MyApp.view.AutoHideAlert', 
+	requires : ['MyApp.view.AutoHideAlert', 
 				'MyApp.view.pop.Alert', 'MyApp.view.pop.Confirm',
 				'MyApp.view.pop.Congrate', 'MyApp.view.pop.Gameover','MyApp.view.pop.GameIntro',
-				'MyApp.view.pop.Gift'],
+				'MyApp.view.pop.Gift'/*, 'MyApp.view.pop.GiftShareFB'*/],
 	singleton : true,
 	dbConnection : null,
 	popupAdded: [],
 	isFirstLoad: true,
 
-	appVersion: '1.0 (17/08/2014)',
+	appVersion: '1.1',
 	/*
 		1.0 (17/08/2014): v1
-
+		1.1 (5/09/2014): add Qua Tang Moi Ngay, fix bug end game
 
 	*/
 	allQuestions: [],
@@ -24,7 +24,7 @@ Ext.define('MyApp.util.AppUtil', {
 	constructor : function() {
 		var me = this;
 		me.getDbConnection();
-		me.initLocalStorage();
+		//me.initLocalStorage();
 		//me.initAppData();
 		me.fbLogin = null;
 	},
@@ -64,11 +64,13 @@ Ext.define('MyApp.util.AppUtil', {
 							}
 						});
 
+						
 						if (typeof callback == 'function') callback();
 					}
 				});			
 			});
 		} else {
+
 			if (typeof callback == 'function') callback();
 		}
 		
@@ -86,7 +88,7 @@ Ext.define('MyApp.util.AppUtil', {
 		return null;
 	},
 
-	initLocalStorage : function() {
+	initLocalStorage : function(callback) {
 		//this.log('initLocalStorage');
 		var me = this;
 		if (!me.localStore) {
@@ -102,14 +104,14 @@ Ext.define('MyApp.util.AppUtil', {
 			me.log(me.getLocalVar('hello'));*/
 			//me.saveLocalVar('autologin', 'true');
 			//me.saveLocalVar('autosync', 'true');
-			me.initSettings();
+			me.initSettings(callback);
 		});
 
 	},
 
 	resetSettings: function() {
 		var me = this;
-		me.saveLocalVar('score', 20);
+		me.saveLocalVar('score', 200);
 		me.saveLocalVar('level', 1);
 		me.saveLocalVar('freetime', 1);
 		me.saveLocalVar('opentime', 3);
@@ -130,24 +132,24 @@ Ext.define('MyApp.util.AppUtil', {
 		me.save();
 	},
 
-	initSettings : function() {
+	initSettings : function(callback) {
 		var me = this;
-		if (!me.getLocalVar('app_version')) {
+		if (me.getLocalVar('app_version') == null) {
 			me.saveLocalVar('app_version', '0.0');
 		}
-		if (!me.getLocalVar('showhelp')) {
+		if (me.getLocalVar('showhelp') == null) {
 			me.saveLocalVar('showhelp', false);
 		}
-		if (!me.getLocalVar('score')) {
+		if (me.getLocalVar('score') == null) {
 			me.saveLocalVar('score', 20);
 		}
-		if (!me.getLocalVar('level')) {
+		if (me.getLocalVar('level') == null) {
 			me.saveLocalVar('level', 1);
 		}
-		if (!me.getLocalVar('freetime')) {
+		if (me.getLocalVar('freetime') == null) {
 			me.saveLocalVar('freetime', 1);
 		}
-		if (!me.getLocalVar('opentime')) {
+		if (me.getLocalVar('opentime') == null) {
 			me.saveLocalVar('opentime', 3);
 		}
 
@@ -165,13 +167,15 @@ Ext.define('MyApp.util.AppUtil', {
 		//me.saveLocalVar('score', 30);
 		
 		me.APPVERSION = me.getLocalVar('app_version');
-		me.SCORE = me.getLocalVar('score');
-		me.LEVEL = me.getLocalVar('level');
-		me.FREETIME = me.getLocalVar('freetime');
-		me.OPENTIME = me.getLocalVar('opentime');
-		me.OPENINGANSWER = me.getLocalVar('openinganswer');
-		me.CLOSESELECTION = me.getLocalVar('closeselection');
+		me.SCORE = parseInt(me.getLocalVar('score'));
+		me.LEVEL = parseInt(me.getLocalVar('level'));
+		me.FREETIME = parseInt(me.getLocalVar('freetime'));
+		me.OPENTIME = parseInt(me.getLocalVar('opentime'));
+		me.OPENINGANSWER = me.getLocalVar('openinganswer').split(',');
+		me.CLOSESELECTION = me.getLocalVar('closeselection').split(',');
 		me.GAMESTATE = me.getLocalVar('gamestate');
+
+		if (typeof callback == 'function') callback();
 	},
 
 	save: function() {
@@ -195,7 +199,7 @@ Ext.define('MyApp.util.AppUtil', {
 		var me = this;
 		var m = me.localStore.findRecord('name', name);
 		if (m)
-			return m.data.value;
+			return m.data.value.toString();
 		return null;
 	},
 
@@ -203,12 +207,12 @@ Ext.define('MyApp.util.AppUtil', {
 		var me = this;
 		var m = me.localStore.findRecord('name', name);
 		if (m) {
-			m.data.value = value;
+			m.data.value = value.toString();
 			m.save();
 		} else {
 			m = new MyApp.model.SavedVar({
 				name : name,
-				value : value
+				value : value.toString()
 			});
 			me.localStore.add(m);
 
@@ -220,8 +224,8 @@ Ext.define('MyApp.util.AppUtil', {
 		var me = this;
 		if (!me.dbConnection) {
 			var dbconnval = {
-				dbName : "babateam-findword",
-				dbDescription : "babateam findword database"
+				dbName : "jokerteamorg-findword",
+				dbDescription : "jokerteamorg findword database"
 			};
 			me.dbConnection = Ext.create('MyApp.util.offline.Connection', dbconnval);
 			//me.offline = Ext.create('MyApp.util.offline.Data', {});
@@ -229,13 +233,13 @@ Ext.define('MyApp.util.AppUtil', {
 		return me.dbConnection;
 	},
 	
-	alert: function(msg, title) {
+	alert: function(msg, title, callback) {
 		var me = this;
 		title = title || '';
 
 		if (!me._popAlert) me._popAlert = Ext.create('MyApp.view.pop.Alert');
         Ext.Viewport.add(me._popAlert);
-        me._popAlert.showMe(msg, title);
+        me._popAlert.showMe(msg, title, callback);
 		/*
 		var alert = Ext.Msg.alert(title, msg, function() {
 			//me.popupAdded.pop();
@@ -263,13 +267,13 @@ Ext.define('MyApp.util.AppUtil', {
         me._popGameover.showMe();
 	},
 
-	gameintro: function() {
+	gameintro: function(callback) {
 		var me = this;
 		//title = title || '';
 
 		if (!me._popGameintro) me._popGameintro = Ext.create('MyApp.view.pop.GameIntro');
         Ext.Viewport.add(me._popGameintro);
-        me._popGameintro.showMe();
+        me._popGameintro.showMe(callback);
 	},
 
 	gift: function(callback) {
@@ -279,6 +283,14 @@ Ext.define('MyApp.util.AppUtil', {
 		if (!me._popGift) me._popGift = Ext.create('MyApp.view.pop.Gift');
         Ext.Viewport.add(me._popGift);
         me._popGift.showMe(callback);
+	},
+
+	giftByDay: function(callback) {
+		var me = this;
+		//title = title || '';
+
+		me.alert('Chào mừng Bạn ! Hãy vào game mỗi ngày để nhận quà tặng 10 xu nhé.<br/>Chúc ngày mới tốt đẹp !',
+				'XU TẶNG MỖI NGÀY', callback);
 	},
 
 	autoAlert: function (msg) {
@@ -354,81 +366,14 @@ Ext.define('MyApp.util.AppUtil', {
 			    								}, 
 			    								function(errormsg){
 			    									//alert(errormsg)
-			    									AppUtil.alert('Không tìm thấy app Facebook trên thiết bị. Hãy cài đặt để chia sẻ với bạn bè và người thân.', 'Cùng Chơi Đoán Chữ');
+			    									AppUtil.alert('Không tìm thấy app Facebook trên thiết bị. Hãy cài đặt để chia sẻ với bạn bè và người thân.', '<span style="font-size: 18px;">Cùng Chơi Đoán Chữ</span>');
 			    								}
 			    );
 			    //else
 			  }
 			},'jpg',90,'cungchoidoanchu');
+    	} else {
+    		AppUtil.alert('Không tìm thấy app Facebook trên thiết bị. Hãy cài đặt để chia sẻ với bạn bè và người thân.', '<span style="font-size: 18px;">Cùng Chơi Đoán Chữ</span>');
     	}
-    	
-    },
-
-    loginFB: function() {
-    	var me = this;
-    	/*if (!window.cordova) {
-            var appId = prompt("Enter FB Application ID", "");
-            facebookConnectPlugin.browserInit(appId);
-        }*/
-        facebookConnectPlugin.login( ["email"], 
-            function (response) { 
-            	//alert(JSON.stringify(response)) 
-            	me.fbToken = response.authResponse.accessToken;
-            	//me.fbLogin = response;//Ext.decode(JSON.stringify(response)); //{authResponse: {userID, accessToker, sess}}
-            	me.showDialog();
-            },
-            function (response) { 
-            	//alert(JSON.stringify(response)) 
-            	AppUtil.alert('Kết nối mạng thất bại.', 'Facebook');
-            });
-    },
-
-    getStatus: function () { 
-    	var me = this;
-        facebookConnectPlugin.getLoginStatus(
-	        function (status) {
-	            //alert("current status: " + JSON.stringify(status));
-	            if (status.authResponse) {
-	            	if (status.authResponse.accessToken) me.fbToken = status.authResponse.accessToken;
-	            }
-	            
-	            if (status.status == 'connected' && me.fbToken) {
-	            	me.showDialog();
-	            } else {
-	            	me.loginFB();
-	            }
-
-	            
-	        }
-	    );
-    },
-
-    showDialog: function () { 
-    	var me = this;
-    	//AppUtil.alert('showDialog', 'Facebook');
-        facebookConnectPlugin.showDialog( { method: "feed"/*, picture: me.currentImagePath*/ }, 
-            function (response) { 
-            	//alert(JSON.stringify(response)) 
-            	AppUtil.alert('Đăng thành công.', 'Facebook');
-            },
-            function (response) { 
-            	//alert(JSON.stringify(response)) 
-            	//AppUtil.alert('Kết nối mạng thất bại.', 'Facebook');
-            	//AppUtil.alert('Đăng nhập thất bại.', 'Facebook');
-            });
-		/*var params = {
-		        message: 'Cùng Chơi Đoán Chữ - Mình bị bí câu này, mọi người giúp mình nào ^^',
-		        access_token: me.fbToken, // response.authResponse.accessToken
-		        url: me.currentImagePath
-	    	};
-	    alert(JSON.stringify(params));
-		facebookConnectPlugin.api( '/photos', 'post', params, function (response) {
-		        if (!response || response.error) {
-		            alert('Error!' + response.error.message);
-		        } else {
-		            alert('Photo Posted');
-	        	}
-
-	    	});*/
-    }   
+    }
 }); 

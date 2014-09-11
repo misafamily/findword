@@ -1,5 +1,5 @@
 body {
-	font-family: 'ROBOTO-LIGHT'
+	font-family: 'AVOO-LIGHT'
 }
 
 .x-mask.x-has-message .x-loading-spinner-outer {
@@ -12,7 +12,7 @@ body {
 }
 
 .x-mask.x-has-message .x-mask-inner {
-	top: 210px;
+	top: 200px;
 }
 
 .x-loading-spinner {
@@ -36,7 +36,7 @@ body {
 }
 .x-button-label, .x-button-normal .x-button-label {
 	color: white;
-	font-family: 'ROBOTO-LIGHT';
+	font-family: 'AVOO-LIGHT';
 }
 
 .button-pop {
@@ -50,7 +50,6 @@ body {
 
 .button-pop.intro {
 	width: 137px;
-	margin-left: 10px;
 }
 
 .button-pop.x-button-pressing {
@@ -59,16 +58,17 @@ body {
 
 .button-pop .x-button-label {
 	color: #000;
-	font-family: 'ROBOTO-BOLD'
+	font-family: 'AVOO-BOLD';
+	font-size: 16px;
 }
 
 .button-pop.intro .x-button-label {
-	font-size: 14px;
+	font-size: 13px;
 }
 
 .button-pop.x-button-pressing .x-button-label {
 	color: #fff;
-	font-family: 'ROBOTO-BOLD'
+	font-family: 'AVOO-BOLD'
 }
 
 .button-start {
@@ -82,10 +82,10 @@ body {
 }
 
 .button-start .x-button-label {
-	font-size: 28px;
+	font-size: 24px;
 	color: #fff;
-	font-family: 'ROBOTO-BOLD';
-	/*margin-top:  3px;*/
+	font-family: 'AVOO-BOLD';
+	margin-top: -8px;
 }
 
 .button-info {
@@ -99,9 +99,9 @@ body {
 }
 
 .button-start.x-button-pressing .x-button-label {
-	font-size: 28px;
+	font-size: 24px;
 	color: #cb3327;
-	font-family: 'ROBOTO-BOLD';
+	font-family: 'AVOO-BOLD';
 	/*margin-top:  3px;*/
 }
 
@@ -181,8 +181,8 @@ body {
 .button-gift .x-button-label {
 	font-size: 36px;
 	color: #931628;
-	font-family: 'ROBOTO-BOLD';
-	margin-top: 9px;
+	font-family: 'AVOO-BOLD';
+	margin-top: 0px;
 }
 
 
@@ -214,20 +214,21 @@ body {
 .button-question .x-button-label {
 	font-size: 22px;
 	color: #383838;
-	font-family: 'ROBOTO-BOLD';
-	margin-top:  3px;
+	font-family: 'AVOO-BOLD';
+	margin-top:  -3px;
 }
 
 .button-question.open .x-button-label {
 	font-size: 22px;
 	color: #071e36;
-	font-family: 'ROBOTO-BOLD';
+	font-family: 'AVOO-BOLD';
+	margin-top: -3px;
 }
 
 .button-question.fix .x-button-label {
 	font-size: 22px;
 	color: #fff;
-	font-family: 'ROBOTO-BOLD';
+	font-family: 'AVOO-BOLD';
 }
 
 
@@ -248,8 +249,8 @@ body {
 .button-answer .x-button-label {
 	font-size: 26px;
 	color: #071e36;
-	font-family: 'ROBOTO-BOLD';
-	margin-top: 2px;
+	font-family: 'AVOO-BOLD';
+	margin-top: -3px;
 }
 
 .button-answer.hide {
@@ -260,7 +261,7 @@ body {
 	color: #339196 !important;
 	border: 0px solid #c14819;
 	background-color: #FFFFFF;
-	top: -10px;
+	top: -4px;
 	right: -13px;
 }
 
@@ -292,11 +293,11 @@ body {
 .pop-alert-container .title {
 	padding: 10px;
 	border-bottom: 1px solid;
-	width: 80%;
+	width: 90%;
 	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 15px;
-	font-family: 'ROBOTO-BOLD';
+	font-family: 'AVOO-BOLD';
 	font-size: 22px;
 }
 
@@ -305,6 +306,8 @@ body {
 	text-align: center;
 	height: 92px;
 	margin-bottom: 8px;
+	font-size: 15px;
+	line-height: 22px;
 }
 
 .pop-congrate-container {
@@ -321,10 +324,11 @@ body {
 }
 
 .doandung.gift {
-	font-size: 20px;
+	font-size: 16px;
 	margin: 15px;
 	margin-top: 0px;
 	margin-bottom: 20px;
+	text-align: center;
 }
 
 /*HOME*/
@@ -342,14 +346,24 @@ body {
 	color: white;
 	font-size: 30px;
 	text-align: center;
-	font-family: 'ROBOTO-BOLD';
+	font-family: 'AVOO-BOLD';
+	/* margin-top: -3px; */
+}
+
+.home-level .x-innerhtml {
+
+	margin-top: -8px;
+	
+
+	font-size: 24px;
+
 }
 
 .home-game-title {
 	color: #d73529;
 	font-size: 26px;
 	margin-top: 20px;
-	/*font-family: 'ROBOTO-BOLD';*/
+	/*font-family: 'AVOO-BOLD';*/
 }
 
 .home-game-title.option {
@@ -360,8 +374,8 @@ body {
 }
 
 .home-logo {
-	margin-top: 20px;
-	margin-bottom: 5px;
+	/*margin-top: 20px;
+	margin-bottom: 5px;*/
 }
 
 .home-buttons {
@@ -374,24 +388,25 @@ body {
 }
 
 .game-topbar {
-	height: 62px;
-	padding-top: 20px;
-	background-image: url('../images/barbg.png');
+	height: 64px;
+	/*padding-top: 20px;*/
+	/*background-image: url('../images/barbg.png');*/
 	width: 100%;
 	background-size: contain;
 	color: white;
 	font-size: 18px;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding-left: 0px;
+	padding-right: 0px;
+	background-color: #dcd4bf;
 }
 
 .game-level {
-	font-family: 'ROBOTO-BOLD';
-	/* background-image: url('../images/caubg.png'); */
+	font-family: 'AVOO-BOLD';
+	 background-image: url('../images/caubg.png'); 
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	/* width: 187px; */
-	height: 44px;
+	height: 54px;
 	/* top: -18px; */
 }
 
@@ -450,15 +465,16 @@ body {
 	background-size: contain;
 	width: 288px;
 	height: 90px;
-	font-family: 'ROBOTO-BOLD';
-	margin-bottom: 15px;
+	font-family: 'AVOO-BOLD';
+	margin-bottom: 0px;
+	font-size: 20px;
 }
 
 .pop-congrate-container .cauxxx {
-	font-family: 'ROBOTO-BOLD';
-	font-size: 26px;
-	margin-top: 10px;
-	margin-bottom: 15px;
+	font-family: 'AVOO-BOLD';
+	font-size: 24px;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .pop-congrate-container .dapan {
@@ -467,7 +483,7 @@ body {
 	width: 300px;
 	height: 100px;
 	background-repeat: no-repeat;
-	margin-bottom: 15px;
+	margin-bottom: 5px;
 }
 
 .pop-congrate-container .dapan.gift {

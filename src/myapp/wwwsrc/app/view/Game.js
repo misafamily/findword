@@ -23,49 +23,70 @@ Ext.define('MyApp.view.Game', {
 				pack: 'center',
 				align: 'center'
 			},
+			width: '100%',
 			items:[{
 				xtype: 'container',
 				width: 120,
 				layout: {
 					type: 'hbox',
-					pack: 'center',
+					pack: 'start',
 					align: 'center'
+				},
+				style: {
+					'background-color' : '#3ba6ac',
+					'height': '44px'
 				},
 				items:[{
 					xtype: 'button',
 					cls: 'button-icon button-back',
-					title: 'back'
+					title: 'back',
+					style: {
+						'margin-left': '5px'
+					}
 				}, {
 					xtype: 'button',
 					cls: 'button-icon button-help',
 					badgeText: '3',
 					title: 'helpbtn',
 					itemId: 'helpbtnid'
-				}, {
-					xtype: 'spacer',
-					flex: 1
 				}]
+			}, {
+				xtype: 'spacer',
+				flex: 1,
+				style: {
+					'background-color' : '#3ba6ac',
+					'height': '44px'
+				}
 			}, {
 				xtype: 'label',
 				html: 'CAU XXXX',
 				cls: 'game-level',
 				title: 'levellabel',
-				flex: 1,
+				//flex: 1,
+				width: 80,
 				style: {
 					'text-align': 'center'
 				}
 			}, {
+				xtype: 'spacer',
+				flex: 1,
+				style: {
+					'background-color' : '#3ba6ac',
+					'height': '44px'
+				}
+			}, {
 				xtype: 'container',
 				width: 120,
+				style: {
+					'background-color' : '#3ba6ac',
+					'height': '44px'
+				},
 				layout: {
 					type: 'hbox',
 					pack: 'center',
 					align: 'center'
 				},
 				items:[{
-					xtype: 'spacer',
-					flex: 1
-				}, {
 					xtype: 'button',
 					cls: 'button-icon button-sharefb',
 					title: 'sharefbbtn',
@@ -78,6 +99,9 @@ Ext.define('MyApp.view.Game', {
 						align: 'center'
 					},
 					cls: 'game-score',
+					style: {
+						'margin-right': '5px'
+					},
 					items: [{
 						xtype: 'label',
 						html: '1110',
@@ -280,22 +304,53 @@ Ext.define('MyApp.view.Game', {
 
 			me.currentButtonIndex = 0;
 			me.playGame();
+
+			var showhelp = AppUtil.getLocalVar('showhelp') == 'true';
+
+			if (!showhelp) {
+				//AppUtil.saveLocalVar('showhelp', true);
+				AppUtil.gameintro(function(){
+					me.checkShowGiftByDay();
+				});
+			} else {
+				me.checkShowGiftByDay();
+			}
 		}
 		//check show intro
-		var showhelp = AppUtil.getLocalVar('showhelp');
-
-		if (!showhelp) {
-			//AppUtil.saveLocalVar('showhelp', true);
-			AppUtil.gameintro();
+		//console.log('showhelp: ', AppUtil.getLocalVar('showhelp'));
+		if (!me.getNextQuestion()) {
+			AppUtil.gameover();
 		}
+		
 
 		//AppUtil.gift();
 	},
 
+	checkShowGiftByDay: function() {
+		var me = this;
+
+		if (!me.getNextQuestion()) return;
+		var today = new Date();
+		var todaystr = today.getFullYear().toString() + (today.getMonth()+1).toString() + today.getDate().toString();
+		console.log('checkShowGiftByDay: ', todaystr);
+		if (AppUtil.getLocalVar('giftbyday_' + todaystr) == null) {
+			AppUtil.giftByDay(function() {
+				//console.log('qua tamg close: ', todaystr);
+				AppUtil.SCORE += 10;
+				AppUtil.save();
+				me.scoreLabel.setHtml(AppUtil.SCORE);
+				AppUtil.saveLocalVar('giftbyday_' + todaystr, 'done');
+			});
+		}
+		
+	},
+
 	getNextQuestion: function() {
 		var me = this;
-		if (me.allQuestions.length > 0) return me.allQuestions.shift();
+		if (AppUtil.LEVEL  <= me.allQuestions.length) return me.allQuestions[AppUtil.LEVEL-1];
 		else return null;
+		//if (me.allQuestions.length > 0) return me.allQuestions.shift();
+		//else return null;
 	},
 
 	playGame: function() {
@@ -311,6 +366,7 @@ Ext.define('MyApp.view.Game', {
 			}
 			
 			me.renderQuestion(q);
+
 		} else {
 			//AppUtil.alert('Bạn đã hoàn thành trò chơi. Chúng tôi sẽ cập nhật thêm trong phiên bản tiếp theo.<br/>Xin chào và hẹn gặp lại.', 'CHÚC MỪNG');
 			AppUtil.gameover();
@@ -326,7 +382,7 @@ Ext.define('MyApp.view.Game', {
 		if (!me.helpButton) me.helpButton = me.down('button[title="helpbtn"]');
 
 		//me.levelLabel.setHtml('CÂU ' + lv);
-		me.levelLabel.setHtml('#' + lv);
+		me.levelLabel.setHtml(lv);
 		me.scoreLabel.setHtml(AppUtil.SCORE);
 		//me.freetimeButton.setBadgeText(AppUtil.FREETIME);
 		me.helpButton.setBadgeText(AppUtil.OPENTIME);
